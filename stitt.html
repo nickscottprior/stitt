@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            background-color: rgb(247, 247, 226);
+        }
+        body {
+            margin-left: 50px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .sentence {
+            background-color: rgb(247, 247, 226);
+        }
+        .sanskrit {
+            background-color: white;
+            font-size: 20px;
+            padding-top: 5px;
+            padding-left: 10px;
+            margin-bottom: 0;
+            white-space: pre-wrap;
+        }
+        .tibetan {
+            background-color: white;
+            font-size: 20px;
+            padding-left: 10px;
+            margin-top: 0;
+            white-space: pre-wrap;
+        }
+        .indent {
+            padding-left: 10px;
+            margin-top: 16px;
+            margin-bottom: 16px;
+        }
+        .notes {
+            /*padding-left: 24px; - this padding was from when there was no separate "indent" class,
+            and the existing indent class was actually for the correspondences details element.
+            The details needed a padding-left of 10, whereas the notes (which were a list) needed an indent of 24
+            to be at the same level, due to the details marker taking up 14 extra pixels.*/
+            color: darkslategrey;
+        }
+        .comment {
+            background-color: yellow;
+        }
+        p {
+            margin: 8px 8px;
+        }
+        summary {
+            cursor: pointer;
+            color: darkslategrey;
+            /*text-decoration-line: underline;
+            text-decoration-style: solid;*/
+        }
+        details p {
+            color: darkslategrey;
+            padding-left: 20px;
+        }
+        span.comment span {
+            display: none;
+        }
+        span.comment:hover span {
+            display: inline;
+            background-color: #ffffcc;
+            padding-left: 5px;
+        }
+        :root {
+    counter-reset: newsentence;
+}
+div.sentence {
+  counter-increment: newsentence;
+}
+p.sanskrit::before {
+  content: counter(newsentence) ".   ";
+}
+p.tibetan::before {
+  content: "      ";
+}
+/*p.sanskrit::before {
+  content: counter(newsentence, devanagari) "    ";
+}
+p.tibetan::before {
+  content: counter(newsentence, tibetan) "    ";
+}*/
+    </style>
+</head>
+<body>
+    <h2><strong>Sanskrit-Tibetan interlinear translation tool (STITT)</strong></h2>
+  <p>Click on a text field in the user interface below to edit it.</p>
+  <p>Click the "<em>New block</em>" button at the bottom of the page to add a new sentence.</p>
+  <p>Click the "<em>Download current page</em>" button to save a copy of your work.</p>
+  <p>Open the saved copy in a web browser to continue where you left off.</p>
+    <details><summary>Technical details</summary>
+        <p><em>This program was written by Nick Prior.</em></p>
+        <p><em>It was written using HTML, CSS, and JavaScript, so it can easily be edited or extended by a front-end web developer.</em></p>
+        <p><em>The user interface consists of a series of "blocks" with automatic numbering. Each block includes six fields: the Sanskrit source text, the Tibetan source text, language correspondences, glosses, translations, and notes. 
+            The use of HTML allows data to be structured hierarchically, which makes it easy to rearrange and extract. You can use a STITT file in conjunction with Git version control to manage a collaborative translation project with multiple contributors.
+        </em></p>
+        <p><em>If you run into technical issues, please contact a front-end web developer or check <a href="https://tibetanlanguage.school/resources">my website</a> for troubleshooting.</em></p>
+    </details>
+  <hr>
+  <br>
+    <div class="sentence">
+
+        <p class="sanskrit" contenteditable>पञ्चस्कन्धकविभाषा ॥</p>
+
+        <p class="tibetan" contenteditable>༄༅། །རྒྱ་གར་སྐད་དུ། པཉྩ་སྐན་དྷ་པྲ་ཀ་ར་ཎ་བི་བྷཱ་ཥྱཾ། བོད་སྐད་དུ། ཕུང་པོ་ལྔའི་རབ་ཏུ་བྱེད་པ་བྱེ་བྲག་ཏུ་བཤད་པ། བམ་པོ་དང་པོ།</p>
+
+        <details class="correspnodences indent">
+            <summary>Correspondences</summary>
+            <p contenteditable>प्रकरण<br>विभाषा བྱེ་བྲག་ཏུ་བྱེད་པ་</p></details>
+
+        <details class="glosses indent">
+            <summary>Glosses</summary>
+            <p contenteditable>प्रकरण is a type of text</p></details>
+          
+        <details class="translations indent">
+                <summary>Translations</summary>
+                <p contenteditable>Add translations</p></details>
+
+        <details class="notes indent">
+                <summary>Notes</summary>
+                <p contenteditable>The Sanskrit titles are different in two ways:<br>-pancaskandhaka vs. pancaskandhaprakaraNa<br>-vibhASA vs. vibhASyaM</p></details>
+    
+    </div>
+        <div class="sentence">
+        <p class="sanskrit" contenteditable>नमो बुद्धाय ॥</p>
+        <p class="tibetan" contenteditable>སངས་རྒྱས་དང་སྦྱང་ཆུབ་སེམས་དཔའ་ཐམས་ཅད་ལ་ཕྱག་འཚལ་ལོ། །</p>
+        <details class="correspondences indent">
+            <summary>Correspondences</summary>
+            <p contenteditable>नमो ཕྱག་ཚལ་ལོ། །</span></p></details>
+        <details class="glosses indent">
+            <summary>Glosses</summary>
+            <p contenteditable>Add glosses</p></details>
+        <details class="translations indent">
+            <summary>Translations</summary>
+            <p contenteditable>Add translations</p></details>
+        <details class="notes indent"><summary>Notes</summary><p contenteditable>The Tibetan homage also includes a homage to the bodhisatvas<br>The Tibetan word བྱང་ཆུབ་ is misspelled as སྦྱང་ཆུབ་</p></details>        
+    </div>
+
+    <div class="sentence">
+        <p class="sanskrit" contenteditable>Add Sanskrit text</p>
+        <p class="tibetan" contenteditable>Add Tibetan text</p>
+        <details class="correspondences indent">
+            <summary>Correspondences</summary>
+            <p contenteditable>Add correspondences</span></p>
+        </details>
+        <details class="glosses indent">
+            <summary>Glosses</summary>
+            <p contenteditable>Add glosses</p></details>
+      
+        <details class="translations indent">
+            <summary>Translations</summary>
+          <p contenteditable>Add translations</p></details>
+
+        <details class="notes indent">
+            <summary>Notes</summary>
+            <p contenteditable>Add notes</p></details>        
+    </div>
+
+    <button id="button1">New block</button>
+    <button id="button2">Download current page</button>
+    
+    <script>
+        /*function appendSentence() {
+        let sentenceNode = document.createElement("div");
+        let sentenceNodeParent = document.getElementsByTagName("body");
+        sentenceNodeParent.appendChild(sentenceNode);
+        It says appendChild is not a function, but it is.
+        I think you just can't do x.method(y) within a function.
+        }*/
+        var newDiv = document.createElement('div');
+        var divParent = document.getElementsByTagName("body");
+        var oldButton = document.getElementById("button1");
+        var sentenceBlock = 
+        '<div class="sentence"><p class="sanskrit" contenteditable>Add Sanskrit text</p>' +
+        '<p class="tibetan" contenteditable>Add Tibetan text</p>' +
+        '<details class="correspondences indent"><summary>Correspondences</summary><p contenteditable>Add correspondences</p></details>' +
+        '<details class="glosses indent"><summary>Glosses</summary><p contenteditable>Add glosses</p></details>' +
+        '<details class="translations indent"><summary>Translations</summary><p contenteditable>Add translations</p></details>' +
+        '<details class="notes indent"><summary>Notes</summary><p contenteditable>Add notes</p></details>';
+        document.getElementById("button1").onclick = function () {
+            document.getElementById('button1').insertAdjacentHTML('beforebegin',sentenceBlock);}
+        /*function () {
+            divParent.insertBefore(newDiv, oldButton);
+            document.body.appendChild(newDiv);}*/
+            document.getElementById("button2").onclick = function save() { //Thanks to Uri Barenholz on StackOverflow for this function!
+            const data = "<!DOCTYPE html>\n"+document.documentElement.outerHTML;
+            const link = document.createElement('a');
+            link.setAttribute('download', 'default_download_name.html');
+            link.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
+            link.click();
+}
+    </script>
+</body>
+</html>
