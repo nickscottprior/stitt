@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--Version 1.3-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -30,23 +31,16 @@
             margin-top: 0;
             white-space: pre-wrap;
         }
-        .indent {
-            padding-left: 10px;
-            margin-top: 16px;
-            margin-bottom: 16px;
-        }
-        .notes {
-            /*padding-left: 24px; - this padding was from when there was no separate "indent" class,
-            and the existing indent class was actually for the correspondences details element.
-            The details needed a padding-left of 10, whereas the notes (which were a list) needed an indent of 24
-            to be at the same level, due to the details marker taking up 14 extra pixels.*/
-            color: darkslategrey;
-        }
         .comment {
             background-color: yellow;
         }
         p {
             margin: 8px 8px;
+        }
+        details {
+            padding-left: 10px;
+            margin-top: 16px;
+            margin-bottom: 16px;
         }
         summary {
             cursor: pointer;
@@ -55,7 +49,7 @@
             text-decoration-style: solid;*/
         }
         details p {
-            color: darkslategrey;
+            color: black;
             padding-left: 20px;
         }
         span.comment span {
@@ -67,102 +61,166 @@
             padding-left: 5px;
         }
         :root {
-    counter-reset: newsentence;
-}
-div.sentence {
-  counter-increment: newsentence;
-}
-p.sanskrit::before {
-  content: counter(newsentence) ".   ";
-}
-p.tibetan::before {
-  content: "      ";
-}
-/*p.sanskrit::before {
-  content: counter(newsentence, devanagari) "    ";
-}
-p.tibetan::before {
-  content: counter(newsentence, tibetan) "    ";
-}*/
+        counter-reset: newsentence;
+        }
+        div.sentence {
+        counter-increment: newsentence;
+        }
+        p.sanskrit::before {
+        content: counter(newsentence) ".   ";
+        }
+        p.tibetan::before {
+        content: "      ";
+        }
+        /*p.sanskrit::before {
+        content: counter(newsentence, devanagari) "    ";
+        }
+        p.tibetan::before {
+        content: counter(newsentence, tibetan) "    ";
+        }*/
+        #open button {
+            background-color: green;
+        }
+        #close button {
+            background-color: red;
+        }
+        #show button {
+            background-color: white;
+        }
+        #hide button {
+            background-color: black;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <h2><strong>Sanskrit-Tibetan interlinear translation tool (STITT)</strong></h2>
-  <p>Click on a text field in the user interface below to edit it.</p>
-  <p>Click the "<em>New block</em>" button at the bottom of the page to add a new sentence.</p>
-  <p>Click the "<em>Download current page</em>" button to save a copy of your work.</p>
-  <p>Open the saved copy in a web browser to continue where you left off.</p>
+    <p>Click on a text field in the user interface below to edit it.</p>
+    <p>Click the "<em>New block</em>" button at the bottom of the page to add a new sentence.</p>
+    <p>Click the "<em>Download current page</em>" button to save a copy of your work.</p>
+    <p>Open the saved copy in a web browser to continue where you left off.</p>
     <details><summary>Technical details</summary>
         <p><em>This program was written by Nick Prior.</em></p>
         <p><em>It was written using HTML, CSS, and JavaScript, so it can easily be edited or extended by a front-end web developer.</em></p>
         <p><em>The user interface consists of a series of "blocks" with automatic numbering. Each block includes six fields: the Sanskrit source text, the Tibetan source text, language correspondences, glosses, translations, and notes. 
             The use of HTML allows data to be structured hierarchically, which makes it easy to rearrange and extract. You can use a STITT file in conjunction with Git version control to manage a collaborative translation project with multiple contributors.
         </em></p>
-        <p><em>If you run into technical issues, please contact a front-end web developer or check <a href="https://tibetanlanguage.school/resources/tools/stitt/">my website</a> for troubleshooting.</em></p>
+        <p><em>If you run into technical issues, please contact a front-end web developer or check <a href="https://tibetanlanguage.school/resources">my website</a> for troubleshooting.</em></p>
     </details>
-  <hr>
-  <br>
+    <hr>
+    <br>
+    <span id="open" style="font-size: 14px;">Open:<br>
+        <button id="openCorrespondences">Correspondences</button>
+        <button id="openGlosses">Glosses</button>
+        <button id="openTranslations">Translations</button>
+        <button id="openNotes">Notes</button>
+        <button id="openAll">All fields</button>
+    </span>
+    <br>
+    <span id="close" style="font-size: 14px;">Close:<br>
+        <button id="closeCorrespondences">Correspondences</button>
+        <button id="closeGlosses">Glosses</button>
+        <button id="closeTranslations">Translations</button>
+        <button id="closeNotes">Notes</button>
+        <button id="closeAll">All fields</button>
+    </span>
+    <br>
+    <span id="show" style="font-size: 14px;">Show:<br>
+        <button id="showCorrespondences">Correspondences</button>
+        <button id="showGlosses">Glosses</button>
+        <button id="showTranslations">Translations</button>
+        <button id="showNotes">Notes</button>
+        <button id="showAll">All fields</button>
+    </span>
+    <br>
+    <span id="hide" style="font-size: 14px;">Hide:<br>
+        <button id="hideCorrespondences">Correspondences</button>
+        <button id="hideGlosses">Glosses</button>
+        <button id="hideTranslations">Translations</button>
+        <button id="hideNotes">Notes</button>
+        <button id="hideAll">All fields</button>
+    </span>
+    <br>
+    <div style="height: 20px;"></div>
     <div class="sentence">
 
         <p class="sanskrit" contenteditable>पञ्चस्कन्धकविभाषा ॥</p>
 
         <p class="tibetan" contenteditable>༄༅། །རྒྱ་གར་སྐད་དུ། པཉྩ་སྐན་དྷ་པྲ་ཀ་ར་ཎ་བི་བྷཱ་ཥྱཾ། བོད་སྐད་དུ། ཕུང་པོ་ལྔའི་རབ་ཏུ་བྱེད་པ་བྱེ་བྲག་ཏུ་བཤད་པ། བམ་པོ་དང་པོ།</p>
 
-        <details class="correspnodences indent">
+        <details>
             <summary>Correspondences</summary>
-            <p contenteditable>प्रकरण<br>विभाषा བྱེ་བྲག་ཏུ་བྱེད་པ་</p></details>
+            <p class="correspondences" contenteditable>पञ्चस्कन्धक ཕུང་པོ་ལྔའི་རབ་ཏུ་བྱེད་པ་<br>विभाषा བྱེ་བྲག་ཏུ་བྱེད་པ་</p></details>
 
-        <details class="glosses indent">
+        <details>
             <summary>Glosses</summary>
-            <p contenteditable>प्रकरण is a type of text</p></details>
+            <p class="glosses" contenteditable>प्रकरण is a type of text</p></details>
           
-        <details class="translations indent">
-                <summary>Translations</summary>
-                <p contenteditable>Add translations</p></details>
-
-        <details class="notes indent">
-                <summary>Notes</summary>
-                <p contenteditable>The Sanskrit titles are different in two ways:<br>-pancaskandhaka vs. pancaskandhaprakaraNa<br>-vibhASA vs. vibhASyaM</p></details>
-    
-    </div>
-        <div class="sentence">
-        <p class="sanskrit" contenteditable>नमो बुद्धाय ॥</p>
-        <p class="tibetan" contenteditable>སངས་རྒྱས་དང་སྦྱང་ཆུབ་སེམས་དཔའ་ཐམས་ཅད་ལ་ཕྱག་འཚལ་ལོ། །</p>
-        <details class="correspondences indent">
-            <summary>Correspondences</summary>
-            <p contenteditable>नमो ཕྱག་ཚལ་ལོ། །</span></p></details>
-        <details class="glosses indent">
-            <summary>Glosses</summary>
-            <p contenteditable>Add glosses</p></details>
-        <details class="translations indent">
+        <details>
             <summary>Translations</summary>
-            <p contenteditable>Add translations</p></details>
-        <details class="notes indent"><summary>Notes</summary><p contenteditable>The Tibetan homage also includes a homage to the bodhisatvas<br>The Tibetan word བྱང་ཆུབ་ is misspelled as སྦྱང་ཆུབ་</p></details>        
+            <p class="translations" contenteditable>In the Indian language: pancaskandhaprakaraNa. In the Tibetan language: phung po lnga'i rab tu byed pa bye brag tu bshad pa. In the English language: Explanation of the Treatise on the Five Skandhas. Volume one.</p></details>
+
+        <details>
+            <summary>Notes</summary>
+            <p class="notes" contenteditable>The Sanskrit titles are different in two ways:<br>-pancaskandhaka vs. pancaskandhaprakaraNa<br>-vibhASA vs. vibhASyaM</p></details>
+    
     </div>
 
     <div class="sentence">
-        <p class="sanskrit" contenteditable>Add Sanskrit text</p>
-        <p class="tibetan" contenteditable>Add Tibetan text</p>
-        <details class="correspondences indent">
-            <summary>Correspondences</summary>
-            <p contenteditable>Add correspondences</span></p>
-        </details>
-        <details class="glosses indent">
-            <summary>Glosses</summary>
-            <p contenteditable>Add glosses</p></details>
-      
-        <details class="translations indent">
-            <summary>Translations</summary>
-          <p contenteditable>Add translations</p></details>
 
-        <details class="notes indent">
+        <p class="sanskrit" contenteditable>नमो बुद्धाय ॥</p>
+
+        <p class="tibetan" contenteditable>སངས་རྒྱས་དང་སྦྱང་ཆུབ་སེམས་དཔའ་ཐམས་ཅད་ལ་ཕྱག་འཚལ་ལོ། །</p>
+
+        <details>
+            <summary>Correspondences</summary>
+            <p class="correspondences" contenteditable>नमो ཕྱག་ཚལ་ལོ། །</p></details>
+
+        <details>
+            <summary>Glosses</summary>
+            <p class="glosses" contenteditable>Add glosses</p></details>
+
+        <details>
+            <summary>Translations</summary>
+            <p class="translations" contenteditable>Homage to all the Buddhas and bodhisatvas.</p></details>
+
+        <details>
             <summary>Notes</summary>
-            <p contenteditable>Add notes</p></details>        
+            <p class="notes" contenteditable>The Tibetan homage also includes a homage to the bodhisatvas<br>The Tibetan word བྱང་ཆུབ་ is misspelled as སྦྱང་ཆུབ་</p></details>        
+
+    </div>
+
+    <div class="sentence">
+
+        <p class="sanskrit" contenteditable>पञ्च स्कन्धा इत्यादि प्रकरणारम्भः ।</p>
+
+        <p class="tibetan" contenteditable>ཕུང་པོ་ལྔ་ཞེས་བྱ་བ་ལ་སོགས་པའི་རབ་ཏུ་བྱེད་པ་ཅིའི་ཕྱིར་རྩོམ་ཞེ་ན།</p>
+
+        <details>
+            <summary>Correspondences</summary>
+            <p class="correspondences" contenteditable>पञ्च स्कन्धा ཕུང་པོ་ལྔ་<br>iti ཞེས་བྱ་བ་<br>Adi ལ་སོགས་པ་</p></details>
+
+        <details>
+            <summary>Glosses</summary>
+            <p class="glosses" contenteditable>Add glosses</p></details>
+      
+        <details>
+            <summary>Translations</summary>
+            <p class="translations" contenteditable>Why was the treatise beginning with "The five skandhas..." composed?</p></details>
+
+        <details>
+            <summary>Notes</summary>
+            <p class="notes" contenteditable>Add notes</p></details>        
     </div>
 
     <button id="button1">New block</button>
     <button id="button2">Download current page</button>
-    
+    <br>
+    <button id="button-continuousSanskrit">Continuous Sanskrit</button>
+    <button id="button-continuousTibetan">Continuous Tibetan</button>
+    <button id="button-continuousCorrespondences">Continuous correspondences</button>
+    <button id="button-continuousTranslation">Continuous translation</button>
+    <p id="displayBox">[Output will display here]</p>
     <script>
         /*function appendSentence() {
         let sentenceNode = document.createElement("div");
@@ -177,10 +235,10 @@ p.tibetan::before {
         var sentenceBlock = 
         '<div class="sentence"><p class="sanskrit" contenteditable>Add Sanskrit text</p>' +
         '<p class="tibetan" contenteditable>Add Tibetan text</p>' +
-        '<details class="correspondences indent"><summary>Correspondences</summary><p contenteditable>Add correspondences</p></details>' +
-        '<details class="glosses indent"><summary>Glosses</summary><p contenteditable>Add glosses</p></details>' +
-        '<details class="translations indent"><summary>Translations</summary><p contenteditable>Add translations</p></details>' +
-        '<details class="notes indent"><summary>Notes</summary><p contenteditable>Add notes</p></details>';
+        '<details><summary>Correspondences</summary><p class="correspondences" contenteditable>Add correspondences</p></details>' +
+        '<details><summary>Glosses</summary><p class="glosses" contenteditable>Add glosses</p></details>' +
+        '<details><summary>Translations</summary><p class="translations" contenteditable>Add translations</p></details>' +
+        '<details><summary>Notes</summary><p class="notes" contenteditable>Add notes</p></details>';
         document.getElementById("button1").onclick = function () {
             document.getElementById('button1').insertAdjacentHTML('beforebegin',sentenceBlock);}
         /*function () {
@@ -191,8 +249,265 @@ p.tibetan::before {
             const link = document.createElement('a');
             link.setAttribute('download', 'default_download_name.html');
             link.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
-            link.click();
-}
+            link.click();}
+        
+        //below is for continuous sanskrit
+        /*let sanskritCollection = document.getElementsByClassName("sanskrit");
+        let sanskritArray = [].map.call(sanskritCollection, item => item.textContent);
+        let sanskritContinuous = "";*/
+
+        //This gets the elements in a non-live array format:
+        //const sanskritCollection = document.querySelectorAll('.sanskrit');
+
+        //This gets the content, but in a non-array format:
+        //const sanskritCollection = document.getElementsByClassName("sanskrit").innerHTML;
+
+        //This gets the elements in a collection format, which can be accessed like an array with for:
+        //const sanskritCollection = document.getElementsByClassName("sanskrit");
+
+        //so, there is no need to assign an array using [].map.call() or Array.from().
+
+        //The other method for inserting the continuous result, rather than doing .innerHTML, would be
+        //to do document.getElementById('displayBox').insertAdjacentHTML('beforeend',tibetanContinuous);
+        //but this leads to weird behaviour where the array gets constantly larger.
+
+        const sanskritCollection = document.getElementsByClassName("sanskrit");
+        //const sanskritArray = Array.from(sanskritCollection); no array needed here
+        let sanskritContinuous = "";
+        
+        document.getElementById("button-continuousSanskrit").onclick = function () {
+            for(let i = 0; i < sanskritCollection.length; i++) {
+            let x = sanskritCollection[i].innerHTML;
+            //note: i.innerHTML won't work; you have to do array[i].innerHTML
+            sanskritContinuous += x + " ";
+           }
+           document.getElementById("displayBox").innerHTML = sanskritContinuous;
+           sanskritContinuous = ""
+        }
+
+        //continuous tibetan button
+        //the ___Continuous variables have to be declared with let, or else you can't redefine them in the for() loop
+        //adding ___Continuous = "" to the very end of the function makes the variable memory "clear" with each pass.
+
+        const tibetanCollection = document.getElementsByClassName("tibetan");
+        let tibetanContinuous = "";
+        
+        document.getElementById("button-continuousTibetan").onclick = function () {
+            for(let i = 0; i < tibetanCollection.length; i++) {
+            let x = tibetanCollection[i].innerHTML;
+            tibetanContinuous += x + " ";
+           }
+           document.getElementById("displayBox").innerHTML = tibetanContinuous;
+           tibetanContinuous = "";
+        }
+
+        //continuousCorrespondences button
+        const correspondenceCollection = document.getElementsByClassName("correspondences");
+        let correspondenceContinuous = "";
+        
+        document.getElementById("button-continuousCorrespondences").onclick = function () {
+            for(let i = 0; i < correspondenceCollection.length; i++) {
+            let x = correspondenceCollection[i].innerHTML;
+            correspondenceContinuous += x + "<br>";
+           }
+           document.getElementById("displayBox").innerHTML = correspondenceContinuous;
+           correspondenceContinuous = "";
+        }
+
+        //continuousTranslation button
+        const translationCollection = document.getElementsByClassName("translations");
+        let translationContinuous = "";
+        
+        document.getElementById("button-continuousTranslation").onclick = function () {
+            for(let i = 0; i < translationCollection.length; i++) {
+            let x = translationCollection[i].innerHTML;
+            translationContinuous += x + " ";
+           }
+           document.getElementById("displayBox").innerHTML = translationContinuous;
+           translationContinuous = "";
+        }
+
+        //openAll + closeAll
+        /* This code doesn't work; it doesn't return an error, and an event is listed beside the button, but it doesn't do anything:
+        document.getElementById("openAll").onclick = function () {
+            document.getElementsByTagName("details").open = true;
+        }
+        This also doesn't work, and doesn't return an error:
+        let detailsAll = document.getElementsByTagName("details");
+        document.getElementById("openAll").onclick = function () {
+            detailsAll.open = true;
+        }
+        But the below solution worked! So, if using a live collection, you can't simultaneously edit the whole collection.
+        You have to iterate through the collection with a for() loop.
+        You have 2 options to select all elements:
+            let detailsAll = document.getElementsByTagName("details");
+            or
+            let detailsAll = document.querySelectorAll("details");
+        However, because querySelectorAll is static, the selector won't update with any new blocks that you add.
+        (at least, if you are assigning the selector to a variable outside of a function)
+        It needs to be re-assigned to take the new DOM into account.
+        So, I'm going to try moving the variable declaration *inside* the function.
+        -that worked!
+        */
+        
+        //openAll + closeAll
+        document.getElementById("openAll").onclick = function () {
+            let detailsArray = document.querySelectorAll("details");
+            for (let i = 1; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.open = true;
+            }
+        }
+        document.getElementById("closeAll").onclick = function () {
+            let detailsArray = document.querySelectorAll("details");
+            for (let i = 1; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.open = false;
+            }
+        }
+
+        //openCorrespondences + closeCorrespondences
+        document.getElementById("openCorrespondences").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(3)");
+            for (let i = 0; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.open = true;
+            }
+        }
+        document.getElementById("closeCorrespondences").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(3)");
+            for (let i = 0; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.open = false;
+            }
+        }
+        //openGlosses + closeGlosses
+        document.getElementById("openGlosses").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(4)");
+            for (let i = 0; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.open = true;
+            }
+        }
+        document.getElementById("closeGlosses").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(4)");
+            for (let i = 0; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.open = false;
+            }
+        }
+        //openTranslations + closeTranslations
+        document.getElementById("openTranslations").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(5)");
+            for (let i = 0; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.open = true;
+            }
+        }
+        document.getElementById("closeTranslations").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(5)");
+            for (let i = 0; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.open = false;
+            }
+        }
+        //openNotes + closeNotes
+        document.getElementById("openNotes").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(6)");
+            for (let i = 0; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.open = true;
+            }
+        }
+        document.getElementById("closeNotes").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(6)");
+            for (let i = 0; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.open = false;
+            }
+        }
+
+        //show and hide correspondences
+        document.getElementById("showCorrespondences").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(3)");
+            for (let i = 0; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.style.display = "block";
+            }
+        }
+        document.getElementById("hideCorrespondences").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(3)");
+            for (let i = 0; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.style.display = "none";
+            }
+        }
+
+        //show and hide glosses
+        document.getElementById("showGlosses").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(4)");
+            for (let i = 0; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.style.display = "block";
+            }
+        }
+        document.getElementById("hideGlosses").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(4)");
+            for (let i = 0; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.style.display = "none";
+            }
+        }
+
+        //show and hide translations
+        document.getElementById("showTranslations").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(5)");
+            for (let i = 0; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.style.display = "block";
+            }
+        }
+        document.getElementById("hideTranslations").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(5)");
+            for (let i = 0; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.style.display = "none";
+            }
+        }
+
+        //show and hide notes
+        document.getElementById("showNotes").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(6)");
+            for (let i = 0; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.style.display = "block";
+            }
+        }
+        document.getElementById("hideNotes").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(6)");
+            for (let i = 0; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.style.display = "none";
+            }
+        }
+
+        //show and hide all
+        //these start at i=1, in order to not include the "Technical details" dropdown.
+        //these also use nth-child(n+3)
+        document.getElementById("showAll").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(n+3)");
+            for (let i = 1; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.style.display = "block";
+            }
+        }
+        document.getElementById("hideAll").onclick = function () {
+            let detailsArray = document.querySelectorAll("details:nth-child(n+3)");
+            for (let i = 1; i < detailsArray.length; i++) {
+                let x = detailsArray[i];
+                x.style.display = "none";
+            }
+        }
     </script>
 </body>
 </html>
