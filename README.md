@@ -41,7 +41,7 @@ Chunked text has not yet been implemented. This would include a certain amount o
 
 ### Portability and extensibility
 
-STITT is written in three coding languages: HTML, CSS, and JavaScript. These are the three basic languages of the internet, so they are supported by a wide range of different software. This allows STITT to be portable, meaning that you can write data in STITT and then export it easily into office programs, websites, or other kinds of software. It also makes STITT extensible, which means that it can easily accommodate new features thanks to the many resources, libraries, and features that are available for these three languages.
+STITT is written in three coding languages: HTML, CSS, and JavaScript. These are the three basic languages of the internet, so they are supported by a wide range of different software. This allows data in STITT to be portable, meaning that you can write content in STITT and then export it easily into office programs, websites, or other kinds of software. It also makes STITT extensible, which means that it can easily accommodate new features thanks to the many resources, libraries, and features that are available for these three languages.
 
 ## Target audience
 
