@@ -1,59 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <!--Version 1.3b-->
+<html lang="en"><head>
+    <!--Version 1.4-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        :root {
+            counter-reset: newsentence;
+            --general-display: block; /*alternates with "none"*/
+            --summary-display: list-item; /*alternates with "none"*/
+        }
         * {
             background-color: rgb(247, 247, 226);
+            scroll-behavior: smooth;
         }
         body {
             margin-left: 50px;
             font-family: Arial, Helvetica, sans-serif;
         }
-        .sentence {
-            background-color: rgb(247, 247, 226);
-            padding-top: 25px;
-            padding-bottom: 20px;
-            border-top: 1px dotted black;
+        p[contenteditable] * { /*this takes care of e.g. an added <em> in the editable fields changing the background color to that of the universal selector*/
+            background-color: white;
         }
-        .sanskrit {
+
+        .sentence { /*sentence block style*/
+            background-color: rgb(247, 247, 226);
+            padding-top: 32px;
+            padding-bottom: 25px;
+            border-top: 1px dotted black;
+            position: relative;
+        }
+        
+
+        /*A note on the display of the Sanskrit and Tibetan paragraphs:
+        At 20px font size in FireFox, the rendered height of a paragraph with English text is 24px, excluding padding and margin.
+        At the same font size, Devanagari paragraphs are rendered 27px high, and Tibetan Uchen paragraphs are rendered 41px high.
+        This page was designed for use with Devanagari and Uchen. Other alphabets may make the display look off-kilter.
+        In particular, the alignment of the sidebar buttons is designed for blocks where the first two fields are written in Devanagari and Uchen.*/
+        div.wrapper {
+            background-color: white;
+            border-radius: 5px;
+        }
+        .sanskrit { /*first field*/
             background-color: white;
             font-size: 20px;
             padding-top: 5px;
-            padding-left: 10px;
-            margin-bottom: 0;
             white-space: pre-wrap;
+            margin: 8px 0 0 0;
+            padding-top: 5px;
+            /*padding-left: 50px;
+            text-indent: -50px;*/
+            display: list-item;
+            margin-left: 50px;
+            padding-left: 10px;
         }
-        .tibetan {
+        .tibetan { /*second field*/
             background-color: white;
             font-size: 20px;
-            padding-left: 10px;
-            margin-top: 0;
             white-space: pre-wrap;
+            margin: 0 0 8px 0;
+            display: list-item;
+            margin-left: 50px;
+            padding-left: 10px;
         }
-        .comment {
-            background-color: yellow;
-        }
-        p {
-            margin: 8px 8px;
-        }
-        details {
+        
+
+        /*fields 3-6 are taken care of by the details and summary styles for the dropdown menus*/
+        details { /*details style*/
             padding-left: 10px;
             margin-top: 16px;
             margin-bottom: 16px;
         }
-        summary {
+        summary { /*summary style*/
             cursor: pointer;
             color: darkslategrey;
-            /*text-decoration-line: underline;
-            text-decoration-style: solid;*/
         }
         details p {
-            color: black;
             padding-left: 20px;
+            color: black;
+            margin: 8px;
+        }
+        
+        
+        /*Comment styles -- not currently in use*/
+        .comment {
+            background-color: yellow;
         }
         span.comment span {
             display: none;
@@ -63,29 +93,37 @@
             background-color: #ffffcc;
             padding-left: 5px;
         }
-        :root {
-        counter-reset: newsentence;
-        }
+        
+
+        /*Setting the counter styling*/
         div.sentence {
         counter-increment: newsentence;
         }
-        p.sanskrit::before {
-        content: counter(newsentence) ".   ";
-        }
-        p.tibetan::before {
-        content: "      ";
-        }
-        /*p.sanskrit::before {
-        content: counter(newsentence, devanagari) "    ";
-        }
-        p.tibetan::before {
-        content: counter(newsentence, tibetan) "    ";
+        /*.counter-p::before {
+            content: counter(newsentence) ".";
         }*/
+        /*p.sanskrit::before {
+        content: "  " counter(newsentence) ".   ";
+        }
+        p.tibetan::before {
+        content: "        ";
+        }*/
+        p.sanskrit::marker {
+            content: counter(newsentence) ". ";
+            font-size: 18px;
+        }
+        p.tibetan::marker {
+            content: "";
+        }
+
+        /*note: you can use devanagari and tibetan as counter styles*/
+
+        /*button styles*/
         #open button {
-            background-color: green;
+            background-color: lightgreen;
         }
         #close button {
-            background-color: red;
+            background-color: lightcoral;
         }
         #show button {
             background-color: white;
@@ -94,136 +132,301 @@
             background-color: black;
             color: white;
         }
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            max-width: 25px;
+            position: absolute;
+            left: -37.5px;
+            top: 0;
+            justify-content: space-evenly;
+            height: 100%;
+        }
+        button {
+            cursor: pointer;
+        }
+        /* SHOC display rules - only use these particular selectors once in the CSS to avoid causing issues where the SHOC buttons affect the wrong declaration.*/
+        /* Note: the sidebar is already declared above */
+        .correspondences-dropdown {
+            display: block;
+        }
+        .glosses-dropdown {
+            display: block;
+        }
+        .translation-dropdown {
+            display: block;
+        }
+        .notes-dropdown {
+            display: block;
+        }
+        summary:not(#technical) {
+            display: list-item;
+        }
+        input {
+            max-width: 100px;
+        }
+        /* Custom styles -- if you want to e.g. write a custom span class, you can declare its properties in this section.*/
+        span.red {
+            color: red;
+        }
+        /* Experimental */
+        p.glossesTop {
+            cursor: pointer;
+            color: darkslategrey;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+            display: list-item;
+            list-style-type: disclosure-closed;
+            margin-left: 24px; /*24 looks best on firefox, 28 on chrome*/
+            padding-left: 0; /*this overrides div p {padding-left:20px} above*/
+        }
+        p.glossesBottom {
+            display: none;
+            margin-left: 18px;
+            padding-left: 20px;
+        }
     </style>
 </head>
 <body>
-    <h2><strong>Sanskrit-Tibetan interlinear translation tool (STITT)</strong></h2>
+    <h2><strong>Sanskrit-Tibetan interlinear text tool (STITT)</strong></h2>
+    <p>Note: This version of STITT works best in Firefox. Content may not be editable in other browsers.</p>
     <p>Click on a text field in the user interface below to edit it.</p>
     <p>Click the "<em>New block</em>" button at the bottom of the page to add a new sentence.</p>
-    <p>Click the "<em>Download current page</em>" button to save a copy of your work.</p>
+    <p>Click ctrl+s or the "<em>Save current page</em>" button to download a copy of your work.</p>
     <p>Open the saved copy in a web browser to continue where you left off.</p>
-    <details><summary>Technical details</summary>
-        <p><em>This program was written by Nick Prior.</em></p>
+    <details><summary id="technical">Technical details</summary>
+        <p><em>STITT is a program for working with interlinear textual data. It provides a structured user interface for inputting, annotating, and exporting interlinear text data. It was created by Nick Prior.</em></p>
         <p><em>It was written using HTML, CSS, and JavaScript, so it can easily be edited or extended by a front-end web developer.</em></p>
-        <p><em>The user interface consists of a series of "blocks" with automatic numbering. Each block includes six fields: the Sanskrit source text, the Tibetan source text, language correspondences, glosses, translations, and notes. 
-            The use of HTML allows data to be structured hierarchically, which makes it easy to rearrange and extract. You can use a STITT file in conjunction with Git version control to manage a collaborative translation project with multiple contributors.
+        <p><em>The user interface consists of a set of menus and a work area that contains a series of "blocks" with automatic numbering. Each block includes six fields: the Sanskrit source text, the Tibetan source text, language correspondences, glosses, your translation, and notes. 
+            The use of HTML allows data to be structured hierarchically, which makes it easy to rearrange and extract using the output menu at the bottom of the program. You can use a STITT file in conjunction with Git version control to manage a collaborative translation project with multiple contributors.
         </em></p>
         <p><em>If you run into technical issues, please contact a front-end web developer or check <a href="https://tibetanlanguage.school/resources">my website</a> for troubleshooting.</em></p>
+        <p><em>This file is using STITT version 1.4. Please refer to the <a href="https://github.com/nickscottprior/stitt">STITT GitHub page</a> for the most up-to-date version.</em></p>
     </details>
     <hr>
+
+    <div id="input-menu" style="display:flex; flex-direction: row;justify-content: space-between;margin-right: 10px;">
+        <p><strong>Input menu</strong></p>
+        <p style="font-size: 14px;"><a href="#output-menu">Jump to bottom⤵</a></p>
+    </div>
+
+    <span style="font-size:14px;text-decoration: underline;">Automatic text inputter</span><br>
+    <textarea style="padding:10px;background-color:white; width: 80%; height: 50px" id="input-box" placeholder="Copy-paste some text into this box"></textarea>
+    <div style="margin:10px 0;" title="These buttons will automatically insert text from the input box into the work area.">
+        <button onclick="convertSanskrit()">Process Sanskrit text (GRETIL e-text)</button>
+        <button onclick="convertTibetan()">Process Tibetan text (ACIP e-text)</button>
+    </div>
+    <details><summary>Automatic text inputter instructions</summary><p style="font-size:14px;font-style:italic; padding-right: 20px;">To insert a text into STITT, you can either use the automatic text inputter above, or you can manually add new blocks with the "New block" button at the bottom of the work area.<br>
+        <br>This text inputter breaks a text into individual lines and automatically inserts those lines one-by-one into the work area below. It is much faster than manually breaking a text at every line. You can easily search for a text to work on using the <a href="http://databases.aibs.columbia.edu/">AIBS database</a>, then click on a search result to see if it has a GRETIL and/or ACIP e-text available.</a><br>
+        <br>Sanskrit <a href="http://gretil.sub.uni-goettingen.de/gretil.html">GRETIL texts</a> are romanized by default. They can either be input as-is in their romanized form, or they can be preprocessed and converted to Devanagari first. To do this, 1. copy-paste the text into the <a href="#input-box2">input box</a> at the bottom of the page, 2. click the GRETIL preprocessor button, 3. copy-paste the output into the IAST box of an <a href="https://www.yesvedanta.com/transliterate/">Indic script converter</a>, 4. copy-paste the resulting Devanagari into the automatic text inputter above, and 5. click the "Process Sanskrit text" button.<br>
+        <br>Tibetan <a href="https://asianclassics.org/library/downloads/">ACIP texts</a> have already been converted into Tibetan script, and do not need to be pre-processed or transliterated. You can simply 1. copy-paste the text directly into the automatic text inputter and 2. click the "Process Tibetan text" button. If you want to convert them to Wylie<br>
+        <br>Since Sanskrit and Tibetan texts do not always contain the exact same content or divide sentences the same way, STITT cannot automatically combine and align both languages at the same time. As a result, you will have to automatically input one language and manually input the corresponding passages for the other language.</p>
+    </details>
+    <!--<p class="glossesTop" onclick="openFunction()">Click me (experimental)</p>
+    <p class="glossesBottom" contenteditable>This text should originally be hidden</p>-->
+    <hr style="border:none;">
+
+    
+    <!--<details>
+        <summary>General notes</summary>
+        <p contenteditable>Add notes + links for the project here</p></details>-->
+    <span style="font-size:14px;text-decoration: underline;">SHOC menu</span><br>
+    <span id="show" style="font-size: 14px;" title="These buttons will make the chosen field visible.">Show:<br>
+        <button id="showCorrespondences">Correspondences</button>
+        <button id="showGlosses">Glosses</button>
+        <button id="showTranslation">Translation</button>
+        <button id="showNotes">Notes</button>
+        <button id="showAll">All fields</button>
+        <button id="showFieldNames">Field names</button>
+        <button id="showSidebar">Sidebar</button>
+    </span>
     <br>
-    <span id="open" style="font-size: 14px;">Open:<br>
+    <span id="hide" style="font-size: 14px;" title="These buttons will make the chosen field invisible.">Hide:<br>
+        <button id="hideCorrespondences">Correspondences</button>
+        <button id="hideGlosses">Glosses</button>
+        <button id="hideTranslation">Translation</button>
+        <button id="hideNotes">Notes</button>
+        <button id="hideAll">All fields</button>
+        <button id="hideFieldNames">Field names</button>
+        <button id="hideSidebar">Sidebar</button>
+    </span>
+    <br>
+    <span id="open" style="font-size: 14px;" title="These buttons will open the dropdown for the chosen field.">Open:<br>
         <button id="openCorrespondences">Correspondences</button>
         <button id="openGlosses">Glosses</button>
-        <button id="openTranslations">Translations</button>
+        <button id="openTranslation">Translation</button>
         <button id="openNotes">Notes</button>
         <button id="openAll">All fields</button>
     </span>
     <br>
-    <span id="close" style="font-size: 14px;">Close:<br>
+    <span id="close" style="font-size: 14px;" title="These buttons will close the dropdown for the chosen field.">Close:<br>
         <button id="closeCorrespondences">Correspondences</button>
         <button id="closeGlosses">Glosses</button>
-        <button id="closeTranslations">Translations</button>
+        <button id="closeTranslation">Translation</button>
         <button id="closeNotes">Notes</button>
         <button id="closeAll">All fields</button>
     </span>
     <br>
-    <span id="show" style="font-size: 14px;">Show:<br>
-        <button id="showCorrespondences">Correspondences</button>
-        <button id="showGlosses">Glosses</button>
-        <button id="showTranslations">Translations</button>
-        <button id="showNotes">Notes</button>
-        <button id="showAll">All fields</button>
-    </span>
-    <br>
-    <span id="hide" style="font-size: 14px;">Hide:<br>
-        <button id="hideCorrespondences">Correspondences</button>
-        <button id="hideGlosses">Glosses</button>
-        <button id="hideTranslations">Translations</button>
-        <button id="hideNotes">Notes</button>
-        <button id="hideAll">All fields</button>
-    </span>
-    <br>
     <div style="height: 20px;"></div>
-    <div class="sentence">
-
-        <p class="sanskrit" contenteditable>पञ्चस्कन्धकविभाषा ॥</p>
-
-        <p class="tibetan" contenteditable>༄༅། །རྒྱ་གར་སྐད་དུ། པཉྩ་སྐན་དྷ་པྲ་ཀ་ར་ཎ་བི་བྷཱ་ཥྱཾ། བོད་སྐད་དུ། ཕུང་པོ་ལྔའི་རབ་ཏུ་བྱེད་པ་བྱེ་བྲག་ཏུ་བཤད་པ། བམ་པོ་དང་པོ།</p>
-
-        <details>
-            <summary>Correspondences</summary>
-            <p class="correspondences" contenteditable>पञ्चस्कन्धक ཕུང་པོ་ལྔའི་རབ་ཏུ་བྱེད་པ་<br>विभाषा བྱེ་བྲག་ཏུ་བྱེད་པ་</p></details>
-
-        <details>
-            <summary>Glosses</summary>
-            <p class="glosses" contenteditable>प्रकरण is a type of text</p></details>
-          
-        <details>
-            <summary>Translations</summary>
-            <p class="translations" contenteditable>In the Indian language: pancaskandhaprakaraNa. In the Tibetan language: phung po lnga'i rab tu byed pa bye brag tu bshad pa. In the English language: Explanation of the Treatise on the Five Skandhas. Volume one.</p></details>
-
-        <details>
-            <summary>Notes</summary>
-            <p class="notes" contenteditable>The Sanskrit titles are different in two ways:<br>-pancaskandhaka vs. pancaskandhaprakaraNa<br>-vibhASA vs. vibhASyaM</p></details>
+    <span style="font-size:14px;text-decoration: underline;" title="A place to input notes, links, and other information relevant to this project.">Project notes</span><br>
+    <p style="font-size:14px;padding:5px;background-color:white;" contenteditable="">Sanskrit text: https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/3_phil/buddh/bsa065_u.htm<br>Tibetan text: https://tibetan.works/e-text/reader.php?collection=tengyur&amp;index=4059</p>
     
-    </div>
-
+    <br id="begin">
     <div class="sentence">
+        <div class="wrapper">
+            <p class="sanskrit" contenteditable="">पञ्चस्कन्धाः रूपस्कन्धः वेदनास्कन्धः संज्ञास्कन्धः संस्कारस्कन्धः विज्ञानस्कन्धश्च ॥</p>
 
-        <p class="sanskrit" contenteditable>नमो बुद्धाय ॥</p>
+            <p class="tibetan" contenteditable="">ཕུང་པོ་ལྔ་ནི་གཟུགས་ཀྱི་ཕུང་པོ་དང༌། ཚོར་བའི་ཕུང་པོ་དང༌། འདུ་ཤེས་ཀྱི་ཕུང་པོ་དང༌། འདུ་བྱེད་ཀྱི་ཕུང་པོ་དང༌། རྣམ་པར་ཤེས་པའི་ཕུང་པོའོ། །</p>
+        </div>
 
-        <p class="tibetan" contenteditable>སངས་རྒྱས་དང་སྦྱང་ཆུབ་སེམས་དཔའ་ཐམས་ཅད་ལ་ཕྱག་འཚལ་ལོ། །</p>
-
-        <details>
+        <details class="correspondences-dropdown">
             <summary>Correspondences</summary>
-            <p class="correspondences" contenteditable>नमो ཕྱག་ཚལ་ལོ། །</p></details>
+            <p class="correspondences" contenteditable="">पञ्चस्कन्धाः, ཕུང་པོ་ལྔ་<br>रूप, གཟུགས་<br>वेदना, ཚོར་བ་<br>संज्ञा, འདུ་ཤེས་<br>संस्कार, འདུ་བྱེད་<br>विज्ञान, རྣམ་པར་ཤེས་པ་<br></p>
+        </details>
 
-        <details>
+        <details class="glosses-dropdown">
             <summary>Glosses</summary>
-            <p class="glosses" contenteditable>Add glosses</p></details>
+            <p class="glosses" contenteditable="">Saṃskāras are producers, and not produced things. The translation "formation" should be avoided in most contexts.<br>1. per the Khajjaniya sutta: "And why, monks, do you call them 'saṅkhāras'? Because they produce produced things, monks, that is why they are called 'saṅkhāras'."<br>2. བྱེད་ is an agentive ending in Tibetan grammar, analogous to the English suffix "-er" or "-or", and is contrasted with the patientive ending བྱས་. Cf. saṃskṛta འདུས་བྱས་ "produced thing".<br>3. Miphams Khejuk says "རྣམ་ཤེས་ལ་ཡང་སྲིད་ཀྱི་ས་བོན་འདེབས་པས་འདུ་བྱེད་ཅེས་བྱ་སྟེ།" i.e. "Because they plant the seed of rebirth in one's consciousness, they are called 'producers.' "<br>4. The illustrative example for saṃskāras in the བཀའ་གདམས་ཕ་ཆོས། is a potter. The text says "འདུ་བྱེད་དག་ནི་རྫ་མཁན་བཞིན།" i.e. "Producers are like a potter." Potters are producers, not products.<br></p>
+        </details>
+          
+        <details class="translation-dropdown">
+            <summary>Translation</summary>
+            <p class="translation" contenteditable="">The five heaps are the heap of form, the heap of feeling, the heap of perception, the heap of producers, and the heap of consciousness.<br></p>
+        </details>
 
-        <details>
-            <summary>Translations</summary>
-            <p class="translations" contenteditable>Homage to all the Buddhas and bodhisatvas.</p></details>
-
-        <details>
+        <details class="notes-dropdown">
             <summary>Notes</summary>
-            <p class="notes" contenteditable>The Tibetan homage also includes a homage to the bodhisatvas<br>The Tibetan word བྱང་ཆུབ་ is misspelled as སྦྱང་ཆུབ་</p></details>        
-
+            <p class="notes" contenteditable="">Per Sthiramati, the skandhas are presented in a particular order going from most coarse to least coarse<br></p>
+        </details>
+    
+        <div class="sidebar">
+            <button class="up" title="Move this block up">∧</button>
+            <button class="delete" title="Delete this block">−</button>
+            <button class="insert" title="Insert new block">+</button>
+            <button class="down" title="Move this block down">∨</button>
+        </div>
     </div>
 
     <div class="sentence">
+        <div class="wrapper">
+        <p class="sanskrit" contenteditable="">रूपं कतमत् । यत् किञ्चिद् रूपं सर्वं तच्चत्वारि महाभूतानि चत्वारि च महाभूतान्युपादाय ॥</p>
 
-        <p class="sanskrit" contenteditable>पञ्च स्कन्धा इत्यादि प्रकरणारम्भः ।</p>
-
-        <p class="tibetan" contenteditable>ཕུང་པོ་ལྔ་ཞེས་བྱ་བ་ལ་སོགས་པའི་རབ་ཏུ་བྱེད་པ་ཅིའི་ཕྱིར་རྩོམ་ཞེ་ན།</p>
-
-        <details>
+        <p class="tibetan" contenteditable="">གཟུགས་གང་ཞེ་ན། གཟུགས་གང་ཡིན་པ་ཅི་ཡང་རུང་སྟེ། དེ་དག་ཐམས་ཅད་འབྱུང་བ་ཆེན་པོ་བཞི་དག་དང༌། འབྱུང་བ་ཆེན་པོའི་བཞི་དག་རྒྱུར་བྱས་པའོ། །</p>
+        </div>
+        <details class="correspondences-dropdown">
             <summary>Correspondences</summary>
-            <p class="correspondences" contenteditable>पञ्च स्कन्धा ཕུང་པོ་ལྔ་<br>iti ཞེས་བྱ་བ་<br>Adi ལ་སོགས་པ་</p></details>
+            <p class="correspondences" contenteditable="">महाभूतानि, འབྱུང་བ་ཆེན་པོ་བཞི་དག་<br>महाभूतान्युपादाय, འབྱུང་བ་ཆེན་པོའི་[sic]བཞི་དག་རྒྱུར་བྱས་པ་<br></p>
+        </details>
 
-        <details>
+        <details class="glosses-dropdown">
             <summary>Glosses</summary>
-            <p class="glosses" contenteditable>Add glosses</p></details>
+            <p class="glosses" contenteditable="">महाभूतान्युपादाय is an irregular compound, meaning something like "derivative of the four great elements"<br></p>
+        </details>
+
+        <details class="translation-dropdown">
+            <summary>Translation</summary>
+            <p class="translation" contenteditable="">What is form? Anything at all which is form, that is the four great elements and that which derives from the four great elements.<br></p>
+        </details>
+
+        <details class="notes-dropdown">
+            <summary>Notes</summary>
+            <p class="notes" contenteditable="">-odd placement of genitive marker in the Tibetan<br>-upādāya receives very little description in most dictionaries<br></p>
+        </details>        
+
+        <div class="sidebar">
+            <button class="up" title="Move this block up">∧</button>
+            <button class="delete" title="Delete this block">−</button>
+            <button class="insert" title="Insert new block">+</button>
+            <button class="down" title="Move this block down">∨</button>
+        </div>
+    </div>
+
+    <div class="sentence">
+        <div class="wrapper">
+        <p class="sanskrit" contenteditable="">कतमानि चत्वारि महाभूतानि । पृथिवी धातुः अब्धातुः तेजोधातुःवायुधातुश्च ॥</p>
+
+        <p class="tibetan" contenteditable="">འབྱུང་བ་ཆེན་པོ་བཞི་དག་གང་ཞེ་ན། སའི་ཁམས་དང༌། ཆུའི་ཁམས་དང༌། མེའི་ཁམས་དང༌། རླུང་གི་ཁམས་སོ། །</p>
+        </div>
+        <details class="correspondences-dropdown">
+            <summary>Correspondences</summary>
+            <p class="correspondences" contenteditable="">पृथिवी धातुः, སའི་ཁམས་<br>अब्धातुः, ཆུའི་ཁམས་<br>तेजोधातुः, མེའི་ཁམས་<br>वायुधातु, རླུང་གི་ཁམས་<br></p>
+        </details>
+
+        <details class="glosses-dropdown">
+            <summary>Glosses</summary>
+            <p class="glosses" contenteditable="">In the དག་ཡིག་གསར་བསྒྲིགས།, this usage of dhātu (ཁམས་) is glossed as "nature" or "essence" (རང་གཤིས་སམ་ངོ་བོ་)<br></p>
+        </details>
       
-        <details>
-            <summary>Translations</summary>
-            <p class="translations" contenteditable>Why was the treatise beginning with "The five skandhas..." composed?</p></details>
+        <details class="translation-dropdown">
+            <summary>Translation</summary>
+            <p class="translation" contenteditable="">What are the four great elements? They are the element of earth, the element of water, the element of fire, and the element of wind.<br></p>
+        </details>
 
-        <details>
+        <details class="notes-dropdown">
             <summary>Notes</summary>
-            <p class="notes" contenteditable>Add notes</p></details>        
+            <p class="notes" contenteditable="">Per Sthiramati, these elements are called "great" due to having a great scope, since they are the basis of all derived form (upādayarūpa)<br></p>
+        </details>
+        
+        <div class="sidebar">
+            <button class="up" title="Move this block up">∧</button>
+            <button class="delete" title="Delete this block">−</button>
+            <button class="insert" title="Insert new block">+</button>
+            <button class="down" title="Move this block down">∨</button>
+        </div>
     </div>
-
-    <button id="button1">New block</button>
-    <button id="button2">Download current page</button>
+    <br id="end">
+    <div id="output-menu" style="display:flex; flex-direction: row;justify-content: space-between;margin-right: 10px;align-items: flex-end;">
+        <span>
+        <button id="newBlock" style="background-color:lightgreen">New block</button>
+        <button id="savePage" style="background-color: lightblue;">Save current page</button>
+        </span>
+    <p style="font-size: 14px;"><a href="#input-menu">Jump to top⤴</a></p>
+    </div>
     <br>
-    <button id="button-continuousSanskrit">Continuous Sanskrit</button>
-    <button id="button-continuousTibetan">Continuous Tibetan</button>
-    <button id="button-continuousCorrespondences">Continuous correspondences</button>
-    <button id="button-continuousTranslation">Continuous translation</button>
-    <p id="displayBox">[Output will display here]</p>
+    <div>
+    <button onclick="massDelete()" style="background-color:lightcoral">Delete blocks in range:</button>
+    <input id="minimum" type="number" placeholder="First block #">
+    <input id="maximum" type="number" placeholder="Last block #">
+    </div>
+    <br>
+    <button id="button-parseHTML" style="background-color:khaki">Parse HTML</button>
+    <button id="button-purgeHTML" style="background-color:plum">Purge HTML</button>
+    <div style="height: 30px;"></div>
+    <p><strong>Output menu </strong></p>
+    <p style="font-size:14px;margin-top:0;">Output text from the work area:</p>
+    <div style="font-size: 14px;margin:5px;" title="This will output the chosen field from the work area with line breaks between each block.">Block-by-block:<br>
+    <button onclick="linebylineSanskritA()">Sanskrit</button>
+    <button onclick="linebylineTibetanA()">Tibetan</button>
+    <button onclick="linebylineTranslationA()">Translation</button>
+    <button id="button-continuousCorrespondences">Correspondences</button></div>
+    <div style="font-size: 14px;margin:5px;" title="This will output the chosen field from the work area as a continuous text without line breaks.">Continuous:<br>
+    <button id="button-continuousSanskrit">Sanskrit</button>
+    <button id="button-continuousTibetan">Tibetan</button>
+    <button id="button-continuousTranslation">Translation</button></div>
+    <div style="font-size: 14px;margin:5px;" title="This will output a table that you can easily import into Word, Excel, or a flashcard program like Anki. To avoid data extraction errors, please try to use a consistent column separator for all the correspondences fields in the document.">Chart correspondences using a specific column separator:<br>
+        <button onclick="commaCorrespondences()">comma (,)</button>
+        <button onclick="equalCorrespondences()">equals sign (=)</button>
+        <button onclick="slashCorrespondences()">slash (/)</button>
+        <button onclick="hyphenCorrespondences()">hyphen (-)</button>
+        <button onclick="dblspaceCorrespondences()">double space (  )</button><br>
+    </div>
+    <div style="margin-top: 25px;padding:8px 0px;border-top: 1px dotted black; border-bottom: 1px dotted black;" title="This will convert any text from the input box into the chosen format.">
+    <p style="font-size: 14px;">Output text from an input box:</p>
+    <textarea style="padding:10px;background-color:white; width: 80%; height: 50px" id="input-box2" placeholder="Copy-paste some text into this box"></textarea><br>
+        <button onclick="linebylineSanskritB()">Line-by-line Sanskrit (GRETIL e-text)</button>
+        <button onclick="continuousSanskritB()">Continuous Sanskrit (GRETIL e-text)</button><br>
+        <button onclick="linebylineTibetanB()">Line-by-line Tibetan (ACIP e-text)</button>
+        <button onclick="continuousTibetanB()">Continuous Tibetan (ACIP e-text)</button><br>
+        <button onclick="gretilPre()">GRETIL preprocessor</button>
+        <button onclick="clearOutput()">Clear output</button>
+        <div style="height: 15px;"></div>
+    </div>
+    <hr style="border: none;">
+    <p style="text-decoration: underline;">View output below:</p>
+    <div id="displayBox" style="margin-left:0;">[Output will display here]</div>
+    <div style="height: 30px;"></div>
+    
     <script>
         /*function appendSentence() {
         let sentenceNode = document.createElement("div");
@@ -234,20 +437,35 @@
         }*/
         var newDiv = document.createElement('div');
         var divParent = document.getElementsByTagName("body");
-        var oldButton = document.getElementById("button1");
-        var sentenceBlock = 
+        var oldButton = document.getElementById("newBlock");
+
+        //note: I had to remove the global definition of sentenceBlock because it was stopping the open/close buttons from
+        //working with new blocks
+
+
+        /*var sentenceBlock = 
         '<div class="sentence"><p class="sanskrit" contenteditable>Add Sanskrit text</p>' +
         '<p class="tibetan" contenteditable>Add Tibetan text</p>' +
-        '<details><summary>Correspondences</summary><p class="correspondences" contenteditable>Add correspondences</p></details>' +
-        '<details><summary>Glosses</summary><p class="glosses" contenteditable>Add glosses</p></details>' +
-        '<details><summary>Translations</summary><p class="translations" contenteditable>Add translations</p></details>' +
-        '<details><summary>Notes</summary><p class="notes" contenteditable>Add notes</p></details>';
-        document.getElementById("button1").onclick = function () {
-            document.getElementById('button1').insertAdjacentHTML('beforebegin',sentenceBlock);}
+        '<details class="correspondences-dropdown"'+correspondencesOpen+'><summary>Correspondences</summary><p class="correspondences" contenteditable>Add correspondences</p></details>' +
+        '<details class="glosses-dropdown"'+glossesOpen+'><summary>Glosses</summary><p class="glosses" contenteditable>Add glosses</p></details>' +
+        '<details class="translation-dropdown"'+translationOpen+'><summary>Translation</summary><p class="translation" contenteditable>Add translation</p></details>' +
+        '<details class="notes-dropdown"'+notesOpen+'><summary>Notes</summary><p class="notes" contenteditable>Add notes</p></details>' +
+        '<div class="sidebar"><button class="up" title="Move this block up">&and;</button><button class="delete" title="Delete this block">&minus;</button><button class="insert" title="Insert new block">&#43;</button><button class="down" title="Move this block down">&or;</button></div>';*/
+        document.getElementById("newBlock").onclick = function () {
+            let sentenceBlock = 
+        '<div class="sentence"><div class="wrapper"><p class="sanskrit" contenteditable>Add Sanskrit text</p>' +
+        '<p class="tibetan" contenteditable>Add Tibetan text</p></div>' +
+        '<details class="correspondences-dropdown"'+correspondencesOpen+'><summary>Correspondences</summary><p class="correspondences" contenteditable>Add correspondences</p></details>' +
+        '<details class="glosses-dropdown"'+glossesOpen+'><summary>Glosses</summary><p class="glosses" contenteditable>Add glosses</p></details>' +
+        '<details class="translation-dropdown"'+translationOpen+'><summary>Translation</summary><p class="translation" contenteditable>Add translation</p></details>' +
+        '<details class="notes-dropdown"'+notesOpen+'><summary>Notes</summary><p class="notes" contenteditable>Add notes</p></details>' +
+        '<div class="sidebar"><button class="up" title="Move this block up">&and;</button><button class="delete" title="Delete this block">&minus;</button><button class="insert" title="Insert new block">&#43;</button><button class="down" title="Move this block down">&or;</button></div>';
+            document.getElementById('end').insertAdjacentHTML('beforebegin',sentenceBlock);
+        }
         /*function () {
             divParent.insertBefore(newDiv, oldButton);
             document.body.appendChild(newDiv);}*/
-            document.getElementById("button2").onclick = function save() { //Thanks to Uri Barenholz on StackOverflow for this function!
+            document.getElementById("savePage").onclick = function save() { //Thanks to Uri Barenholz on StackOverflow for this function!
             const data = "<!DOCTYPE html>\n"+document.documentElement.outerHTML;
             const link = document.createElement('a');
             link.setAttribute('download', 'default_download_name.html');
@@ -257,7 +475,7 @@
         //below is for continuous sanskrit
         /*let sanskritCollection = document.getElementsByClassName("sanskrit");
         let sanskritArray = [].map.call(sanskritCollection, item => item.textContent);
-        let sanskritContinuous = "";*/
+        let sanskritOutput = "";*/
 
         //This gets the elements in a non-live array format:
         //const sanskritCollection = document.querySelectorAll('.sanskrit');
@@ -271,21 +489,31 @@
         //so, there is no need to assign an array using [].map.call() or Array.from().
 
         //The other method for inserting the continuous result, rather than doing .innerHTML, would be
-        //to do document.getElementById('displayBox').insertAdjacentHTML('beforeend',tibetanContinuous);
+        //to do document.getElementById('displayBox').insertAdjacentHTML('beforeend',tibetanOutput);
         //but this leads to weird behaviour where the array gets constantly larger.
 
         const sanskritCollection = document.getElementsByClassName("sanskrit");
         //const sanskritArray = Array.from(sanskritCollection); no array needed here
-        let sanskritContinuous = "";
+        let sanskritOutput = "";
         
         document.getElementById("button-continuousSanskrit").onclick = function () {
             for(let i = 0; i < sanskritCollection.length; i++) {
             let x = sanskritCollection[i].innerHTML;
             //note: i.innerHTML won't work; you have to do array[i].innerHTML
-            sanskritContinuous += x + " ";
-           }
-           document.getElementById("displayBox").innerHTML = sanskritContinuous;
-           sanskritContinuous = ""
+            sanskritOutput += x + " ";
+            }
+            document.getElementById("displayBox").innerHTML = sanskritOutput;
+            sanskritOutput = ""
+        }
+
+        //linebylineSanskritA
+        function linebylineSanskritA() {
+            for(let i = 0; i < sanskritCollection.length; i++) {
+            let x = sanskritCollection[i].innerHTML;
+            sanskritOutput += x + "<br>";
+            }
+            document.getElementById("displayBox").innerHTML = sanskritOutput;
+            sanskritOutput = ""
         }
 
         //continuous tibetan button
@@ -293,18 +521,29 @@
         //adding ___Continuous = "" to the very end of the function makes the variable memory "clear" with each pass.
 
         const tibetanCollection = document.getElementsByClassName("tibetan");
-        let tibetanContinuous = "";
+        let tibetanOutput = "";
         
         document.getElementById("button-continuousTibetan").onclick = function () {
             for(let i = 0; i < tibetanCollection.length; i++) {
             let x = tibetanCollection[i].innerHTML;
-            tibetanContinuous += x + " ";
+            tibetanOutput += x + " ";
            }
-           document.getElementById("displayBox").innerHTML = tibetanContinuous;
-           tibetanContinuous = "";
+           tibetanOutput = tibetanOutput.replaceAll("། ། ", "། །")
+           document.getElementById("displayBox").innerHTML = tibetanOutput;
+           tibetanOutput = "";
         }
 
-        //continuousCorrespondences button
+        //linebylineTibetanA
+        function linebylineTibetanA() {
+            for(let i = 0; i < tibetanCollection.length; i++) {
+            let x = tibetanCollection[i].innerHTML;
+            tibetanOutput += x + "<br>";
+           }
+           document.getElementById("displayBox").innerHTML = tibetanOutput;
+           tibetanOutput = "";
+        }
+
+        //continuousCorrespondences button -- this is a misnomer, it's blockbyblockCorrespondences
         const correspondenceCollection = document.getElementsByClassName("correspondences");
         let correspondenceContinuous = "";
         
@@ -312,22 +551,68 @@
             for(let i = 0; i < correspondenceCollection.length; i++) {
             let x = correspondenceCollection[i].innerHTML;
             correspondenceContinuous += x + "<br>";
+            correspondenceContinuous = correspondenceContinuous.replaceAll("<br><br>", "<br>")
            }
            document.getElementById("displayBox").innerHTML = correspondenceContinuous;
            correspondenceContinuous = "";
         }
 
         //continuousTranslation button
-        const translationCollection = document.getElementsByClassName("translations");
-        let translationContinuous = "";
+        const translationCollection = document.getElementsByClassName("translation");
+        let translationOutput = "";
         
         document.getElementById("button-continuousTranslation").onclick = function () {
             for(let i = 0; i < translationCollection.length; i++) {
             let x = translationCollection[i].innerHTML;
-            translationContinuous += x + " ";
+            x = x.replaceAll("<br>", " "); //to manage ghost <br>s at the end of an editable p
+            translationOutput += x + " ";
            }
-           document.getElementById("displayBox").innerHTML = translationContinuous;
-           translationContinuous = "";
+           document.getElementById("displayBox").innerHTML = translationOutput;
+           translationOutput = "";
+        }
+
+        //linebylineTranslationA
+        function linebylineTranslationA() {
+            for(let i = 0; i < translationCollection.length; i++) {
+            let x = translationCollection[i].innerHTML;
+            translationOutput += x + "<br>";
+            translationOutput = translationOutput.replaceAll("<br><br>", "<br>") //to manage ghost <br>s at the end of an editable p
+           }
+           document.getElementById("displayBox").innerHTML = translationOutput;
+           translationOutput = "";
+        }
+
+        //parseHTML button
+        /*const parser = new DOMParser();*/
+        //const fieldCollection = document.getElementsByTagName("p");
+        
+        document.getElementById("button-parseHTML").onclick = function () {
+            let fieldCollection = document.querySelectorAll("p[contenteditable]");
+            if (confirm("Note: this will parse all user-input HTML tags.\nFor security, you should only use and parse HTML tags if you know and understand the risks of XSS. Do you want to continue?")) {
+                for(let i = 0; i < fieldCollection.length; i++) {
+                    //if(fieldCollection[i].getAttribute(contenteditable)==true) {
+                    let x = fieldCollection[i].innerHTML;
+                    let leftParsed = "";
+                    leftParsed += x.replaceAll("&lt;","<");
+                    let rightParsed = leftParsed.replaceAll("&gt;",">");
+                    fieldCollection[i].innerHTML = rightParsed;
+                    //}
+                }
+            }
+        }
+
+        //purgeHTML button
+        document.getElementById("button-purgeHTML").onclick = function () {
+            let fieldCollection = document.querySelectorAll("p[contenteditable]");
+            if (confirm("Note: this will remove all HTML formatting, including line breaks, from all user-input fields. Do you want to continue?")) {
+                for(let i = 0; i < fieldCollection.length; i++) {
+                    let x = fieldCollection[i].innerHTML;
+                    let leftParsed = "";
+                    leftParsed += x.replaceAll("<","&lt;");
+                    let rightParsed = leftParsed.replaceAll(">","&gt;");
+                    fieldCollection[i].innerHTML = rightParsed;
+                }
+            }
         }
 
         //openAll + closeAll
@@ -352,165 +637,710 @@
         So, I'm going to try moving the variable declaration *inside* the function.
         -that worked!
         */
+
+        /*Design note: I can either manipulate content based on numbers + position, or use hard-coded classes.
+        The first approach has better UX but worse DX. It could make things more customizable, and users could
+        add new fields with custom names that automatically update the names of the SHOC deleteButtons, for example.
+        But, the second approach makes it easier to read, write, and troubleshoot the code.
+        I think I'm going to do the second approach for now, and then figure out the first one in a later version.
+        The second approach also doesn't require rewriting deleteButtons if a user does gain the ability to insert a
+        custom field type.
+        The SHOC deleteButtons in 1.3 use a position-based approach, with a declaration like:
+        let detailsArray = document.querySelectorAll(".sentence details:nth-child(3)")
+        In 1.4 I'm going to change this to a class-based approach, with the declaration like:
+        let detailsArray = document.querySelectorAll(".correspondences-dropdown")
+        */
         
         //openAll + closeAll
+        //note: for a while I used The Old Method below, which didn't affect new blocks:
+        /* The Old Method:
         document.getElementById("openAll").onclick = function () {
-            let detailsArray = document.querySelectorAll("details");
-            for (let i = 1; i < detailsArray.length; i++) {
+            let detailsArray = document.querySelectorAll(".sentence details");
+            for (let i = 0; i < detailsArray.length; i++) {
                 let x = detailsArray[i];
                 x.open = true;
             }
+        }*/
+        //side-note: might be good to eventually move away from details+summary, towards a visiblity-based scripted system
+
+        //but now I am using The New Method to edit the CSS directly in the head:
+        //open/close all fields:
+        document.getElementById("openAll").onclick = function () {
+            let detailsArray = document.querySelectorAll(".sentence details");
+            for (i = 0; i < detailsArray.length; i++) {
+                detailsArray[i].setAttribute("open", "");
+            }
+            correspondencesOpen = "open";
+            glossesOpen = "open";
+            translationOpen = "open";
+            notesOpen = "open";
         }
         document.getElementById("closeAll").onclick = function () {
-            let detailsArray = document.querySelectorAll("details");
-            for (let i = 1; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.open = false;
+            let detailsArray = document.querySelectorAll(".sentence details");
+            for (i = 0; i < detailsArray.length; i++) {
+                detailsArray[i].removeAttribute("open");
             }
+            correspondencesOpen = "";
+            glossesOpen = "";
+            translationOpen = "";
+            notesOpen = "";
         }
 
         //openCorrespondences + closeCorrespondences
+        var correspondencesOpen="";
         document.getElementById("openCorrespondences").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(3)");
-            for (let i = 0; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.open = true;
+            let detailsArray = document.getElementsByClassName("correspondences-dropdown");
+            for (i = 0; i < detailsArray.length; i++) {
+                //detailsArray[i].style.visibility = "visible";
+                detailsArray[i].setAttribute("open", "");
             }
+            correspondencesOpen = "open";
         }
         document.getElementById("closeCorrespondences").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(3)");
-            for (let i = 0; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.open = false;
+            let detailsArray = document.getElementsByClassName("correspondences-dropdown");
+            for (i = 0; i < detailsArray.length; i++) {
+                detailsArray[i].removeAttribute("open");
             }
-        }
-        //openGlosses + closeGlosses
-        document.getElementById("openGlosses").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(4)");
-            for (let i = 0; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.open = true;
-            }
-        }
-        document.getElementById("closeGlosses").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(4)");
-            for (let i = 0; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.open = false;
-            }
-        }
-        //openTranslations + closeTranslations
-        document.getElementById("openTranslations").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(5)");
-            for (let i = 0; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.open = true;
-            }
-        }
-        document.getElementById("closeTranslations").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(5)");
-            for (let i = 0; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.open = false;
-            }
-        }
-        //openNotes + closeNotes
-        document.getElementById("openNotes").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(6)");
-            for (let i = 0; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.open = true;
-            }
-        }
-        document.getElementById("closeNotes").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(6)");
-            for (let i = 0; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.open = false;
-            }
+            correspondencesOpen = "";
         }
 
+        //openGlosses + closeGlosses
+        var glossesOpen = "";
+        document.getElementById("openGlosses").onclick = function () {
+            let detailsArray = document.getElementsByClassName("glosses-dropdown");
+            for (i = 0; i < detailsArray.length; i++) {
+                detailsArray[i].setAttribute("open", "");
+            }
+            glossesOpen = "open";
+        }
+        document.getElementById("closeGlosses").onclick = function () {
+            let detailsArray = document.getElementsByClassName("glosses-dropdown");
+            for (i = 0; i < detailsArray.length; i++) {
+                detailsArray[i].removeAttribute("open");
+            }
+            glossesOpen = "";
+        }
+        //openTranslation + closeTranslation
+        var translationOpen = "";
+        document.getElementById("openTranslation").onclick = function () {
+            let detailsArray = document.getElementsByClassName("translation-dropdown");
+            for (i = 0; i < detailsArray.length; i++) {
+                detailsArray[i].setAttribute("open", "");
+            }
+            translationOpen = "open";
+        }
+        document.getElementById("closeTranslation").onclick = function () {
+            let detailsArray = document.getElementsByClassName("translation-dropdown");
+            for (i = 0; i < detailsArray.length; i++) {
+                detailsArray[i].removeAttribute("open");
+            }
+            translationOpen = "";
+        }
+        //openNotes + closeNotes
+        var notesOpen = "";
+        document.getElementById("openNotes").onclick = function () {
+            let detailsArray = document.getElementsByClassName("notes-dropdown");
+            for (i = 0; i < detailsArray.length; i++) {
+                detailsArray[i].setAttribute("open", "");
+            }
+            notesOpen = "open";
+        }
+        document.getElementById("closeNotes").onclick = function () {
+            let detailsArray = document.getElementsByClassName("notes-dropdown");
+            for (i = 0; i < detailsArray.length; i++) {
+                detailsArray[i].removeAttribute("open");
+            }
+            notesOpen = "";
+        }
+
+        //SHOW AND HIDE BUTTONS
+
         //show and hide correspondences
-        document.getElementById("showCorrespondences").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(3)");
+
+        //first method below worked, but not for new blocks.
+        //second method below works for new blocks by changing the element style in the head.
+
+        //first method:
+        /*document.getElementById("showCorrespondences").onclick = function () {
+            let detailsArray = document.querySelectorAll(".correspondences-dropdown");
             for (let i = 0; i < detailsArray.length; i++) {
                 let x = detailsArray[i];
                 x.style.display = "block";
             }
+        }*/
+        //second method:
+        document.getElementById("showCorrespondences").onclick = function () {
+            let cssRuleList = document.styleSheets[0].rules;
+            for (i = 0; i < cssRuleList.length; i++) {
+                if (cssRuleList[i].selectorText == ".correspondences-dropdown") {
+                    cssRuleList[i].style.display = "block";
+                }
+            }
         }
+        //I have changed all the other show/hide rules to the second method.
+        //The above comment is the only relic of the first method that I've preserved, to keep the code easier to read.
+        //Note: the second method requires declaring the selector in the head.
+        //However, you don't need to declare the display or visibility property in its selector block. It will set it regardless.
+        //If it's not declared in the head, then the if() method won't find a match, and so no code will run, but no error will be thrown either.
+        //I wonder -- rather than using "if()", is there a way to search in an array?
+
         document.getElementById("hideCorrespondences").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(3)");
-            for (let i = 0; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.style.display = "none";
+            let cssRuleList = document.styleSheets[0].rules;
+            for (i = 0; i < cssRuleList.length; i++) {
+                if (cssRuleList[i].selectorText == ".correspondences-dropdown") {
+                    cssRuleList[i].style.display = "none";
+                }
             }
         }
 
         //show and hide glosses
         document.getElementById("showGlosses").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(4)");
-            for (let i = 0; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.style.display = "block";
+            let cssRuleList = document.styleSheets[0].rules;
+            for (i = 0; i < cssRuleList.length; i++) {
+                if (cssRuleList[i].selectorText == ".glosses-dropdown") {
+                    cssRuleList[i].style.display = "block";
+                }
             }
         }
         document.getElementById("hideGlosses").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(4)");
-            for (let i = 0; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.style.display = "none";
+            let cssRuleList = document.styleSheets[0].rules;
+            for (i = 0; i < cssRuleList.length; i++) {
+                if (cssRuleList[i].selectorText == ".glosses-dropdown") {
+                    cssRuleList[i].style.display = "none";
+                }
             }
         }
 
-        //show and hide translations
-        document.getElementById("showTranslations").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(5)");
-            for (let i = 0; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.style.display = "block";
+        //show and hide translation
+        document.getElementById("showTranslation").onclick = function () {
+            let cssRuleList = document.styleSheets[0].rules;
+            for (i = 0; i < cssRuleList.length; i++) {
+                if (cssRuleList[i].selectorText == ".translation-dropdown") {
+                    cssRuleList[i].style.display = "block";
+                }
             }
         }
-        document.getElementById("hideTranslations").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(5)");
-            for (let i = 0; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.style.display = "none";
+        document.getElementById("hideTranslation").onclick = function () {
+            let cssRuleList = document.styleSheets[0].rules;
+            for (i = 0; i < cssRuleList.length; i++) {
+                if (cssRuleList[i].selectorText == ".translation-dropdown") {
+                    cssRuleList[i].style.display = "none";
+                }
             }
         }
 
         //show and hide notes
         document.getElementById("showNotes").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(6)");
-            for (let i = 0; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.style.display = "block";
+            let cssRuleList = document.styleSheets[0].rules;
+            for (i = 0; i < cssRuleList.length; i++) {
+                if (cssRuleList[i].selectorText == ".notes-dropdown") {
+                    cssRuleList[i].style.display = "block";
+                }
             }
         }
         document.getElementById("hideNotes").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(6)");
-            for (let i = 0; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.style.display = "none";
+            let cssRuleList = document.styleSheets[0].rules;
+            for (i = 0; i < cssRuleList.length; i++) {
+                if (cssRuleList[i].selectorText == ".notes-dropdown") {
+                    cssRuleList[i].style.display = "none";
+                }
             }
         }
 
         //show and hide all
-        //these start at i=1, in order to not include the "Technical details" dropdown.
-        //these also use nth-child(n+3)
+        //for some reason these don't work if you do a single if() condition like so:
+        //if (cssRuleList[i].selectorText == ".correspondences-dropdown" || ".glosses-dropdown" || ".translation-dropdown" || ".notes-dropdown")
+        //instead, I had to do a series of "else" statements.
         document.getElementById("showAll").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(n+3)");
-            for (let i = 1; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.style.display = "block";
+            let cssRuleList = document.styleSheets[0].rules;
+            for (i = 0; i < cssRuleList.length; i++) {
+                if (cssRuleList[i].selectorText == ".correspondences-dropdown") {
+                    cssRuleList[i].style.display = "block";
+                } else if (cssRuleList[i].selectorText == ".glosses-dropdown") {
+                    cssRuleList[i].style.display = "block";
+                } else if (cssRuleList[i].selectorText == ".translation-dropdown") {
+                    cssRuleList[i].style.display = "block";
+                } else if (cssRuleList[i].selectorText == ".notes-dropdown") {
+                    cssRuleList[i].style.display = "block";
+                }
             }
         }
         document.getElementById("hideAll").onclick = function () {
-            let detailsArray = document.querySelectorAll("details:nth-child(n+3)");
-            for (let i = 1; i < detailsArray.length; i++) {
-                let x = detailsArray[i];
-                x.style.display = "none";
+            let cssRuleList = document.styleSheets[0].rules;
+            for (i = 0; i < cssRuleList.length; i++) {
+                if (cssRuleList[i].selectorText == ".correspondences-dropdown") {
+                    cssRuleList[i].style.display = "none";
+                } else if (cssRuleList[i].selectorText == ".glosses-dropdown") {
+                    cssRuleList[i].style.display = "none";
+                } else if (cssRuleList[i].selectorText == ".translation-dropdown") {
+                    cssRuleList[i].style.display = "none";
+                } else if (cssRuleList[i].selectorText == ".notes-dropdown") {
+                    cssRuleList[i].style.display = "none";
+                }
             }
         }
+
+        //show and hide sidebar
+        document.getElementById("showSidebar").onclick = function () {
+            let cssRuleList = document.styleSheets[0].rules;
+            for (i = 0; i < cssRuleList.length; i++) {
+                if (cssRuleList[i].selectorText == ".sidebar") {
+                    cssRuleList[i].style.visibility = "visible";
+                }
+            }
+        }
+        document.getElementById("hideSidebar").onclick = function () {
+            let cssRuleList = document.styleSheets[0].rules;
+            for (i = 0; i < cssRuleList.length; i++) {
+                if (cssRuleList[i].selectorText == ".sidebar") {
+                    cssRuleList[i].style.visibility = "hidden";
+                }
+            }
+        }
+        
+        //show and hide fieldnames
+        //this used to use a ".sentence details summary" selector
+        document.getElementById("showFieldNames").onclick = function () {
+            let cssRuleList = document.styleSheets[0].rules;
+            for (i = 0; i < cssRuleList.length; i++) {
+                if (cssRuleList[i].selectorText == "summary:not(#technical)") {
+                    cssRuleList[i].style.display = "list-item";
+                }
+            }
+        }
+        document.getElementById("hideFieldNames").onclick = function () {
+            let cssRuleList = document.styleSheets[0].rules;
+            for (i = 0; i < cssRuleList.length; i++) {
+                if (cssRuleList[i].selectorText == "summary:not(#technical)") {
+                    cssRuleList[i].style.display = "none";
+                }
+            }
+        }
+
+        
+        //delete block button
+        //try 1 mostly worked, but didn't work on newly inserted blocks. doesn't matter whether I used querySelectorAll
+        //or getElementsByClassNAme
+        //var deleteButtons = document.querySelectorAll(".delete");
+        /*var deleteButtons = document.getElementsByClassName("delete");
+        for(let i = 0; i< deleteButtons.length; i++) {
+            deleteButtons[i].addEventListener("click", function(){
+                if (confirm("Are you sure you want to delete block " + (i + 1)+ "?" + "\nWarning: deleting a block cannot be undone.")) {
+                    buttonBlock = this.parentElement.parentElement;
+                    buttonBlock.remove();
+                }
+            })
+        }*/
+
+
+        //try 2 worked, using event bubbling. just doesn't have index of block.
+        /*let container=document.body;
+        container.addEventListener('click', function (e) {
+            if (e.target.classList.contains('delete')) {
+                if (confirm("Are you sure you want to delete this block?" + "\nWarning: deleting a block cannot be undone.")) {
+                    buttonBlock = e.target.parentElement.parentElement;
+                    buttonBlock.remove();
+                }
+            }
+        })*/
+
+        //try 3 in case I can do if(deletebuttons[i]==e.target) to find the index of the target
+        let container=document.body;
+        container.addEventListener('click', function (e) {
+            if (e.target.classList.contains('delete')) {
+                let deleteButtons = document.getElementsByClassName("delete");
+                for(let i = 0; i< deleteButtons.length; i++) {
+                    
+                        if (deleteButtons[i] == e.target) {
+                            
+                            if (confirm("Are you sure you want to delete block " + (i+1) + "?" + "\nWarning: deleting a block cannot be undone.")) {
+                                buttonBlock = e.target.parentElement.parentElement;
+                                buttonBlock.remove();
+                            }
+                        }
+                        
+                    
+                    
+                }
+            }
+        })
+        //wahoo!! that worked
+        
+        //sidebar insert button
+        //try 1 -- didn't work for newly inserted blocks.
+        //I think the other buttons work for newly inserted blocks because they don't rely on eventlisteners.
+        /*document.getElementsByClassName("insert").onclick = function () {
+            let insertButtons = document.getElementsByClassName("insert");
+            for(let i = 0; i< insertButtons.length; i++) {
+                insertButtons[i].addEventListener("click", function(){
+                this.parentElement.parentElement.insertAdjacentHTML('afterend',sentenceBlock);
+                })
+            }
+        }*/
+
+        //try 2 and 3:
+        //in try 2, I tried to insert queryselector inside the function, and when that failed,
+        //I tried to re-declare the query selector at the end of the function...
+
+        /*let insertButtons = document.querySelectorAll(".insert");
+        for(let i = 0; i< insertButtons.length; i++) {
+                insertButtons[i].addEventListener("click", function(){
+                this.parentElement.parentElement.insertAdjacentHTML('afterend',sentenceBlock);
+            })
+            //update global variables
+            //can't use "let" here for some reason, it says it's not been initialized
+            insertButtons = document.querySelectorAll(".insert")
+            //that doesn't work...
+        }*/
+
+        //try 3, using bubbling -- that worked!
+        container.addEventListener('click', function (e) {
+            if (e.target.classList.contains('insert')) {
+                let sentenceBlock = 
+        '<div class="sentence"><div class="wrapper"><p class="sanskrit" contenteditable>Add Sanskrit text</p>' +
+        '<p class="tibetan" contenteditable>Add Tibetan text</p></div>' +
+        '<details class="correspondences-dropdown"'+correspondencesOpen+'><summary>Correspondences</summary><p class="correspondences" contenteditable>Add correspondences</p></details>' +
+        '<details class="glosses-dropdown"'+glossesOpen+'><summary>Glosses</summary><p class="glosses" contenteditable>Add glosses</p></details>' +
+        '<details class="translation-dropdown"'+translationOpen+'><summary>Translation</summary><p class="translation" contenteditable>Add translation</p></details>' +
+        '<details class="notes-dropdown"'+notesOpen+'><summary>Notes</summary><p class="notes" contenteditable>Add notes</p></details>' +
+        '<div class="sidebar"><button class="up" title="Move this block up">&and;</button><button class="delete" title="Delete this block">&minus;</button><button class="insert" title="Insert new block">&#43;</button><button class="down" title="Move this block down">&or;</button></div>';
+                e.target.parentElement.parentElement.insertAdjacentHTML('afterend',sentenceBlock);
+            }
+        })
+
+        //up arrow
+        container.addEventListener('click', function (e) {
+            if (e.target.classList.contains('up')) {
+                if (e.target.parentElement.parentElement.previousElementSibling.outerHTML == '<br id="begin">') {
+                    window.alert("You cannot move this block any higher.");
+                } else {
+                buttonBlock = e.target.parentElement.parentElement;
+                buttonBlock.previousElementSibling.insertAdjacentHTML('beforebegin',buttonBlock.outerHTML);
+                buttonBlock.remove();
+                }
+            }
+        })
+
+        //down arrow
+        container.addEventListener('click', function (e) {
+            if (e.target.classList.contains('down')) {
+                if (e.target.parentElement.parentElement.nextElementSibling.outerHTML == '<br id="end">') {
+                    window.alert("You cannot move this block any lower.");
+                } else {
+                buttonBlock = e.target.parentElement.parentElement;
+                buttonBlock.nextElementSibling.insertAdjacentHTML('afterend',buttonBlock.outerHTML);
+                buttonBlock.remove();
+                }
+            }
+        })
+
+        
+
+        //dropdowns (for Chrome)
+        function openFunction() {
+        let cssRuleList = document.styleSheets[0].rules;
+        console.log(cssRuleList)
+            for (i = 0; i < cssRuleList.length; i++) {
+                if (cssRuleList[i].selectorText == "p.glossesTop") {
+                    if (cssRuleList[i].style.listStyleType == "disclosure-closed") {
+                        cssRuleList[i].style.listStyleType = "disclosure-open";
+                    } else {
+                    cssRuleList[i].style.listStyleType = "disclosure-closed";
+                    }
+                }
+                if (cssRuleList[i].selectorText == "p.glossesBottom") {
+                    if (cssRuleList[i].style.display == "none") {
+                        cssRuleList[i].style.display = "block";
+                    } else {
+                    cssRuleList[i].style.display = "none";
+                    }
+                }
+
+            }
+}
+
+    //convertTibetan button at top of page
+    function convertTibetan() {
+        let inputContent = document.getElementById("input-box").value;
+        let outputContent = inputContent.replaceAll("<br>", ""); // removing HTML line breaks
+        outputContent = outputContent.replaceAll("\n", ""); //removing formatted line breaks
+        outputContent = outputContent.replaceAll("༄༅། །", "");
+        outputContent = outputContent.replaceAll("༄༅༅། །", "yingo");
+        outputContent = outputContent.replaceAll("། །", "doubleshad");
+        outputContent = outputContent.replaceAll("། ", "shadspace");
+        outputContent = outputContent.replaceAll("doubleshad", "། །<br>");
+        outputContent = outputContent.replaceAll("shadspace", "། ");
+        outputContent = outputContent.replaceAll("yingo", "༄༅༅། །");
+        outputContent = outputContent.replaceAll("་ ", "་");
+        let outputArray = outputContent.split("<br>");
+        if (outputArray.length < 2) {
+            alert("The text you've entered appears to be too short. Please enter a longer selection.\nThis button is designed for ACIP e-texts. Other types of text may not be processed correctly.")
+        } else if (confirm("Note: this action will add " + outputArray.length + " blocks to the work area.\nDo you want to continue?")) {
+        for (i = 0; i < outputArray.length; i++) {
+            let sentenceBlock = 
+            '<div class="sentence"><div class="wrapper"><p class="sanskrit" contenteditable>Add Sanskrit text</p>' +
+            '<p class="tibetan" contenteditable>' + outputArray[i] + '</p></div>' +
+            '<details class="correspondences-dropdown"'+correspondencesOpen+'><summary>Correspondences</summary><p class="correspondences" contenteditable>Add correspondences</p></details>' +
+            '<details class="glosses-dropdown"'+glossesOpen+'><summary>Glosses</summary><p class="glosses" contenteditable>Add glosses</p></details>' +
+            '<details class="translation-dropdown"'+translationOpen+'><summary>Translation</summary><p class="translation" contenteditable>Add translation</p></details>' +
+            '<details class="notes-dropdown"'+notesOpen+'><summary>Notes</summary><p class="notes" contenteditable>Add notes</p></details>' +
+            '<div class="sidebar"><button class="up" title="Move this block up">&and;</button><button class="delete" title="Delete this block">&minus;</button><button class="insert" title="Insert new block">&#43;</button><button class="down" title="Move this block down">&or;</button></div>';
+                document.getElementById('end').insertAdjacentHTML('beforebegin',sentenceBlock);
+        }
+            alert("" + outputArray.length +" blocks have been added to the work area.")
+        }
+    }
+    //convertSanskrit button at top of page
+    function convertSanskrit() {
+        let inputContent = document.getElementById("input-box").value;
+        let outputContent = inputContent.replaceAll("\n", "<br>"); //removing formatted line breaks
+        outputContent = outputContent.replaceAll("<br><br><br>", "<br>"); //removing triple HTML line breaks
+        outputContent = outputContent.replaceAll("<br><br>", "<br>"); //removing double HTML line breaks
+        let outputArray = outputContent.split("<br>");
+        if (outputArray.length < 2) {
+            alert("The text you've entered appears to be too short. Please enter a longer selection.\nThis button is designed for GRETIL e-texts. Other types of text may not be processed correctly.")
+        } else if (confirm("Note: this action will add " + outputArray.length + " blocks to the work area.\nDo you want to continue?")) {
+        for (i = 0; i < outputArray.length; i++) {
+            
+                let sentenceBlock = 
+                '<div class="sentence"><div class="wrapper"><p class="sanskrit" contenteditable>' + outputArray[i] + '</p>' +
+                '<p class="tibetan" contenteditable>Add Tibetan text</p></div>' +
+                '<details class="correspondences-dropdown"'+correspondencesOpen+'><summary>Correspondences</summary><p class="correspondences" contenteditable>Add correspondences</p></details>' +
+                '<details class="glosses-dropdown"'+glossesOpen+'><summary>Glosses</summary><p class="glosses" contenteditable>Add glosses</p></details>' +
+                '<details class="translation-dropdown"'+translationOpen+'><summary>Translation</summary><p class="translation" contenteditable>Add translation</p></details>' +
+                '<details class="notes-dropdown"'+notesOpen+'><summary>Notes</summary><p class="notes" contenteditable>Add notes</p></details>' +
+                '<div class="sidebar"><button class="up" title="Move this block up">&and;</button><button class="delete" title="Delete this block">&minus;</button><button class="insert" title="Insert new block">&#43;</button><button class="down" title="Move this block down">&or;</button></div>';
+                document.getElementById('end').insertAdjacentHTML('beforebegin',sentenceBlock);
+            
+        }
+        
+            alert("" + outputArray.length +" blocks have been added to the work area.")
+        }
+    }
+
+    //linebylineSanskrit at bottom of page
+    function linebylineSanskritB() {
+        let inputContent = document.getElementById("input-box2").value;
+        let outputContent = inputContent.replaceAll("\n", "<br>"); //removing formatted line breaks
+        outputContent = outputContent.replaceAll("<br><br><br>", "<br>"); //removing triple HTML line breaks
+        outputContent = outputContent.replaceAll("<br><br>", "<br>"); //removing double HTML line breaks
+        document.getElementById("displayBox").innerHTML = outputContent;
+        }
+
+    //continuousSanskrit at bottom of page
+    function continuousSanskritB() {
+        let inputContent = document.getElementById("input-box2").value;
+        let outputContent = inputContent.replaceAll("\n", "<br>"); //removing formatted line breaks
+        outputContent = outputContent.replaceAll("<br><br><br>", "<br>"); //removing triple HTML line breaks
+        outputContent = outputContent.replaceAll("<br><br>", "<br>"); //removing double HTML line breaks
+        outputContent = outputContent.replaceAll("<br>", " "); //replacing all line breaks with spaces
+        document.getElementById("displayBox").innerHTML = outputContent;
+        }
+
+    //linebylineTibetan at bottom of page
+    function linebylineTibetanB() {
+        let inputContent = document.getElementById("input-box2").value;
+        let outputContent = inputContent.replaceAll("<br>", ""); // removing HTML line breaks
+        outputContent = outputContent.replaceAll("\n", ""); //removing formatted line breaks
+        outputContent = outputContent.replaceAll("༄༅། །", "");
+        outputContent = outputContent.replaceAll("༄༅༅། །", "yingo");
+        outputContent = outputContent.replaceAll("། །", "doubleshad");
+        outputContent = outputContent.replaceAll("། ", "shadspace");
+        outputContent = outputContent.replaceAll("doubleshad", "། །<br>");
+        outputContent = outputContent.replaceAll("shadspace", "། ");
+        outputContent = outputContent.replaceAll("yingo", "༄༅༅། །");
+        outputContent = outputContent.replaceAll("་ ", "་");
+        document.getElementById("displayBox").innerHTML = outputContent;
+    }
+
+    //continuousTibetan at bottom of page
+    function continuousTibetanB() {
+        let inputContent = document.getElementById("input-box2").value;
+        let outputContent = inputContent.replaceAll("<br>", ""); // removing HTML line breaks
+        outputContent = outputContent.replaceAll("\n", ""); //removing formatted line breaks
+        outputContent = outputContent.replaceAll("༄༅། །", "");
+        outputContent = outputContent.replaceAll("༄༅༅། །", "yingo");
+        outputContent = outputContent.replaceAll("། །", "doubleshad");
+        outputContent = outputContent.replaceAll("། ", "shadspace");
+        outputContent = outputContent.replaceAll("doubleshad", "། །");//only this line is different from above -- no <br> added
+        outputContent = outputContent.replaceAll("shadspace", "། ");
+        outputContent = outputContent.replaceAll("yingo", "༄༅༅། །");
+        outputContent = outputContent.replaceAll("་ ", "་");
+        document.getElementById("displayBox").innerHTML = outputContent;
+    }
+
+    //clear output
+    function clearOutput() {
+        document.getElementById("displayBox").innerHTML = "[Output will display here]";
+    }
+
+    //massDelete
+    function massDelete() {
+        let sentenceBlocks = document.querySelectorAll(".sentence");
+        let minValue = document.getElementById("minimum").value;
+        let maxValue = document.getElementById("maximum").value;
+        if (sentenceBlocks.length == 0) {
+            alert("There are no blocks to delete.")
+        } else if ((minValue == "") || isNaN(minValue)) {
+            alert("The minimum value must be a number.")
+        } else if (minValue <= 0) {
+            alert("The minimum value must be greater than or equal to 1.")
+        } else if ((maxValue == "") || isNaN(maxValue)) {
+            alert("The maximum value must be a number.")
+        } else if (maxValue > sentenceBlocks.length) {
+            alert("The maximum value must be less than or equal to " + sentenceBlocks.length +".")
+        } else if (maxValue == minValue) {
+            alert("Please choose a range of more than one block.")
+        } else if (confirm("This action will delete " + (maxValue-minValue+1) + " blocks.\nDo you want to continue?")) {
+            for (i = 0; i < sentenceBlocks.length; i++) {
+                if (minValue <= (i+1)) {
+                    if ((i+1) <= maxValue) {
+                    sentenceBlocks[i].remove();
+                
+                    }
+                }
+            }
+            alert("" + (maxValue-minValue+1) + " blocks have been deleted.")
+        }
+        
+    }
+
+    //stop refresh
+    window.addEventListener('beforeunload', (event) => {
+    // Cancel the event as stated by the standard.
+    event.preventDefault();
+    // Chrome requires returnValue to be set.
+    event.returnValue = '';
+    });
+    
+
+    //comma correspondences with , and line break
+    function commaCorrespondences() {
+
+    for(let i = 0; i < correspondenceCollection.length; i++) { // turns correspondences into a flat string
+    let x = correspondenceCollection[i].innerHTML;
+    correspondenceContinuous += x + "<br>";
+    correspondenceContinuous = correspondenceContinuous.replaceAll("<br><br>", "<br>");
+    }
+
+    let table = "<table><tr><td>"
+    let x = correspondenceContinuous.replaceAll("<br>", "</td></tr><tr><td>"); //uses line breaks as the row separator
+    let y = x.replaceAll(",", "</td><td>"); //uses , as the column separator
+    table += y + "</td></tr></table>";
+    table.replaceAll("<td> ", "<td>");
+    table.replaceAll(" </td>", "</td>");
+    table.replaceAll("<tr></tr>", "");
+    
+    document.getElementById("displayBox").innerHTML = table;
+    correspondenceContinuous = "";
+    table = "";
+    lineArray = "";
+    }
+
+
+    //correspondences with = and line break
+    function equalCorrespondences() {
+
+    for(let i = 0; i < correspondenceCollection.length; i++) { // turns correspondences into a flat string
+    let x = correspondenceCollection[i].innerHTML;
+    correspondenceContinuous += x + "<br>";
+    correspondenceContinuous = correspondenceContinuous.replaceAll("<br><br>", "<br>");
+    }
+
+    let table = "<table><tr><td>"
+    let x = correspondenceContinuous.replaceAll("<br>", "</td></tr><tr><td>"); //uses line breaks as the row separator
+    let y = x.replaceAll("=", "</td><td>"); //uses = as the column separator
+    table += y + "</td></tr></table>";
+    table.replaceAll("<td> ", "<td>");
+    table.replaceAll(" </td>", "</td>");
+    table.replaceAll("<tr></tr>", "");
+    
+    document.getElementById("displayBox").innerHTML = table;
+    correspondenceContinuous = "";
+    table = "";
+    lineArray = "";
+    }
+
+    //correspondences with / and line break
+    function slashCorrespondences() {
+
+    for(let i = 0; i < correspondenceCollection.length; i++) { // turns correspondences into a flat string
+    let x = correspondenceCollection[i].innerHTML;
+    correspondenceContinuous += x + "<br>";
+    correspondenceContinuous = correspondenceContinuous.replaceAll("<br><br>", "<br>");
+    }
+
+    let table = "<table><tr><td>"
+    let x = correspondenceContinuous.replaceAll("<br>", "</td></tr><tr><td>"); //uses line breaks as the row separator
+    let y = x.replaceAll("/", "</td><td>"); //uses / as the column separator
+    table += y + "</td></tr></table>";
+    table.replaceAll("<td> ", "<td>");
+    table.replaceAll(" </td>", "</td>");
+    table.replaceAll("<tr></tr>", "");
+
+    document.getElementById("displayBox").innerHTML = table;
+    correspondenceContinuous = "";
+    table = "";
+    lineArray = "";
+    }
+
+    //correspondences with - and line break
+    function hyphenCorrespondences() {
+
+    for(let i = 0; i < correspondenceCollection.length; i++) { // turns correspondences into a flat string
+    let x = correspondenceCollection[i].innerHTML;
+    correspondenceContinuous += x + "<br>";
+    correspondenceContinuous = correspondenceContinuous.replaceAll("<br><br>", "<br>");
+    }
+
+    let table = "<table><tr><td>"
+    let x = correspondenceContinuous.replaceAll("<br>", "</td></tr><tr><td>"); //uses line breaks as the row separator
+    let y = x.replaceAll("-", "</td><td>"); //uses - as the column separator
+    table += y + "</td></tr></table>";
+    table.replaceAll("<td> ", "<td>");
+    table.replaceAll(" </td>", "</td>");
+    table.replaceAll("<tr></tr>", "");
+
+    document.getElementById("displayBox").innerHTML = table;
+    correspondenceContinuous = "";
+    table = "";
+    lineArray = "";
+    }
+
+    //correspondences with double space and line break
+    function dblspaceCorrespondences() {
+
+    for(let i = 0; i < correspondenceCollection.length; i++) { // turns correspondences into a flat string
+    let x = correspondenceCollection[i].innerHTML;
+    correspondenceContinuous += x + "<br>";
+    correspondenceContinuous = correspondenceContinuous.replaceAll("<br><br>", "<br>");
+    }
+
+    let table = "<table><tr><td>"
+    let x = correspondenceContinuous.replaceAll("<br>", "</td></tr><tr><td>"); //uses line breaks as the row separator
+    let y = x.replaceAll("  ", "</td><td>"); //uses a double space (  ) as the column separator
+    table += y + "</td></tr></table>";
+    table.replaceAll("<td> ", "<td>");
+    table.replaceAll(" </td>", "</td>");
+    table.replaceAll("<tr></tr>", "");
+
+    document.getElementById("displayBox").innerHTML = table;
+    correspondenceContinuous = "";
+    table = "";
+    lineArray = "";
+    }
+
+    //GRETIL preprocessor
+    function gretilPre() {
+        let inputContent = document.getElementById("input-box2").value;
+        let outputContent = inputContent.replaceAll("\n", "<br>"); // preserves line breaks
+        outputContent = outputContent.toLowerCase(); // converts string to lower case
+        outputContent = outputContent.replaceAll("//", "॥"); //converts double dandas
+        outputContent = outputContent.replaceAll("/", "।"); //converts single dandas
+        document.getElementById("displayBox").innerHTML = outputContent;
+        outputContent = "";
+    }
+
+
     </script>
-</body>
-</html>
+</body></html>
