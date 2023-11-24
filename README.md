@@ -61,7 +61,7 @@ To use STITT, click on [stitt.html](/stitt.html) and then click on the download 
 
 ![Screenshot of the download button](/download-raw-file.png)
 
-You can then double-click the downloaded file to open the program in a web browser.
+You can then double-click the downloaded file to open the program in a web browser. STITT works best in Firefox; its content may not be editable in other browsers.
 
 STITT is a local file, not a website. It is stored on your computer but opened in a web browser. As a result, it functions even if you have no internet connection.
 
