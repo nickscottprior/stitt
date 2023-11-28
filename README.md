@@ -128,6 +128,7 @@ The importer works with Devanagari, IAST romanization, Uchen, and Wylie romaniza
 SHOC stands for "Show, Hide, Open, Close". The SHOC buttons let you show, hide, open, or close different dropdown fields in the work area. They can also be used to show or hide the sidebar buttons beside each block in the work area. The SHOC buttons make it easy to close or hide any content that you don't want filling up space on your screen.
 
 **Project notes**
+
 The project notes is an editable field, like most of the fields you will encounter. You can use it however you like, but the intended purpose is to store any links, notes, to-do items, or other information that is relevant to the project you're working on in that STITT document.
 
 ### The work area
