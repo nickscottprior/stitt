@@ -137,9 +137,11 @@ The work area in version 1.4b:
 
 ![stitt-1-4b-work-area](https://github.com/nickscottprior/stitt/assets/140344267/6289ae9c-7832-48e4-8623-89b815851ef2)
 
-The work area consists of a series of blocks that are automatically numbered. Each block is meant to contain a sentence or paragraph of text from the Sanskrit and Tibetan source texts. The dropdown fields in each block are spaces where the translators can insert language correspondences, glosses, a translation of that passage, and any relevant notes. Click on a dropdown field to open it up, and then click on its content to edit it. These dropdown fields can be collectively shown, hidden, opened, or closed using the SHOC buttons in the input menu.
+The work area contains a series of blocks that are automatically numbered. Each block contains a sentence or paragraph of text from the Sanskrit and Tibetan source texts. The dropdown fields in each block are spaces where the translators can insert language correspondences, glosses, a translation of that passage, and any relevant notes. Click on a dropdown field to open it up, and then click on its content to edit it. These dropdown fields can be collectively shown, hidden, opened, or closed using the SHOC buttons in the input menu.
 
-The correspondences should have a specific format, which will be discussed in the "correspondence chart buttons" section below.
+STITT 1.4b comes with three sample blocks already filled in; namely, the first three sentences of Vasubandhu's Pañcaskandhaka. You can delete these blocks before starting your own project.
+
+The correspondences fields should follow a specific format, which will be discussed in the "correspondence chart buttons" section below.
 
 Beside each block is a sidebar menu with four buttons to let you move a given block up or down, delete it, or insert a block immediately below it.
 
