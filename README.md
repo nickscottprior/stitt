@@ -4,7 +4,8 @@ STITT is a program for working with trilingual textual data. It's designed to he
 
 Screenshot of STITT version 1.2:
 
-![Screenshot of STITT](/stitt-screenshot-1.png)
+![stitt-1-4b-screenshot](https://github.com/nickscottprior/stitt/assets/140344267/38b448c7-7c23-453a-b889-3b8ad4c4ee12)
+
 
 ## How to use STITT
 
