@@ -136,7 +136,7 @@ The work area in version 1.4b:
 
 ![stitt-1-4b-work-area](https://github.com/nickscottprior/stitt/assets/140344267/6289ae9c-7832-48e4-8623-89b815851ef2)
 
-The work area consists of a series of blocks that are automatically numbered. Each block is meant to contain a sentence or paragraph of text from the Sanskrit and Tibetan source texts. The dropdown fields in each block are spaces where the translators can insert language correspondences, glosses, a translation of that passage, and any relevant notes. Click on a dropdown field to open it up. These dropdown fields can be collectively shown, hidden, opened, or closed using the SHOC buttons in the input menu.
+The work area consists of a series of blocks that are automatically numbered. Each block is meant to contain a sentence or paragraph of text from the Sanskrit and Tibetan source texts. The dropdown fields in each block are spaces where the translators can insert language correspondences, glosses, a translation of that passage, and any relevant notes. Click on a dropdown field to open it up, and then click on its content to edit it. These dropdown fields can be collectively shown, hidden, opened, or closed using the SHOC buttons in the input menu.
 
 The correspondences should have a specific format, which will be discussed in the "correspondence chart buttons" section below.
 
