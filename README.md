@@ -22,7 +22,7 @@ Because STITT is a local file, it will not update automatically and you may end 
 
 You can "save" a STITT document by typing Ctrl+S or by clicking the "download current page" button at the bottom of the document. I recommend clicking on "show all fields" and "close all fields" before saving.
 
-For a detailed guide to using STITT, see the [Documentation](#documentation) section further below.
+**For a detailed guide to using STITT, see the [Documentation](#documentation) section further below.**
 
 ## New in version 1.4b
 
