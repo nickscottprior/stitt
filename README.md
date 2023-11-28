@@ -15,13 +15,13 @@ To use STITT, click on [stitt.html](/stitt.html) and then click on the download 
 
 ![Screenshot of the download button](/download-raw-file.png)
 
-You can then double-click the downloaded file to open the program in a web browser. STITT works best in Firefox; its content may not be editable in other browsers. If double-clicking doesn't work, then you can right-click it and click on "open with Firefox web browser".
+You can then double-click the downloaded file to open the program in a web browser. If double-clicking doesn't work, then you can right-click the file and select the option to open it with a web browser. STITT works best in Firefox; its content may not be editable in other browsers. 
 
-STITT is a file, not a website. It is stored locally on your computer but opened in a web browser, just like you might open .doc files in Microsoft Word or .pdf files in Adobe Acrobat Reader. As a result, it functions even if you have no internet connection. The stitt.html file contains both the actual program and the content of the document.
+STITT is a file, not a website. It is stored locally on your computer but opened in a web browser, just like you might open .doc files in Microsoft Word or .pdf files in Adobe Acrobat Reader. As a result, it functions even if you have no internet connection.
 
-Because STITT is a local file, it will not update automatically and you may end up using an out-of-date version. This shouldn't cause any issues, but you wouldn't want to miss out on new features :) I recommend checking this page periodically to see if there have been any new updates since you last downloaded STITT.
+Because STITT is a local file, it will not update automatically and you may end up using an out-of-date version. This shouldn't cause any issues, but you wouldn't want to miss out on new features! I recommend checking this page periodically to see if there have been any new updates since you last downloaded STITT.
 
-You can "save" a STITT document by typing Ctrl+S or by clicking the "download current page" button at the bottom of the document. I recommend clicking on "show all fields" and "close all fields" before saving.
+You can "save" a STITT document by typing Ctrl+S or by clicking the "download current page" button at the bottom of the document. I recommend using the SHOC menu to show all fields and close all fields before saving.
 
 **For a detailed guide to using STITT, see the [Documentation](#documentation) section further below.**
 
@@ -117,7 +117,7 @@ The input menu contains 3 sections:
 
 **The automatic text importer**
 
-The automatic text importer is exactly what it sounds like. If you copy-paste (ctrl+c and ctrl+v) a GRETIL or ACIP e-text into the importer box and click the corresponding import button, it will automatically split the text into individual lines and add them to the bottom of the work area. For Sanskrit texts it will preserve the line breaking of the original, and for Tibetan texts it will break lines after every double shad (༎). You can either import a text all at once, or in chunks as needed.
+The automatic text importer is exactly what it sounds like. If you copy-paste (ctrl+c and ctrl+v) a GRETIL or ACIP e-text into the importer box and click the corresponding import button, it will automatically split the text into individual lines and add them to the bottom of the work area. For Sanskrit texts it will preserve the line breaking of the original, and for Tibetan texts it will break lines after every double shad (༎). You can either import a text all at once, or in chunks as needed. Using ctrl+shift+v to paste unformatted text may cause issues with the importer, because it relies partially on the formatting to help it break texts into individual lines.
 
 The "Import Sanskrit text" button is designed for GRETIL e-texts, but it can often support other types of Sanskrit e-text too. The most common issue with importing other types of e-text (e.g. from sanskritdocuments.org or www.dsbcproject.org) is that they have too many spaces and line breaks. If you encounter this issue, you can first copy-paste the text into the output menu, click on "Remove extra lines and spaces", and then copy-paste the output into the automatic text importer. That should allow you to import the text without including extra spaces and line breaks.
 
