@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-    <!--Version 1.4-->
+    <!--Version 1.4b-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -145,6 +145,13 @@
         button {
             cursor: pointer;
         }
+        table, tr, td {
+            border: 1px dotted darkslategrey;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 0 5px;
+        }
         /* SHOC display rules - only use these particular selectors once in the CSS to avoid causing issues where the SHOC buttons affect the wrong declaration.*/
         /* Note: the sidebar is already declared above */
         .correspondences-dropdown {
@@ -202,7 +209,7 @@
             The use of HTML allows data to be structured hierarchically, which makes it easy to rearrange and extract using the output menu at the bottom of the program. You can use a STITT file in conjunction with Git version control to manage a collaborative translation project with multiple contributors.
         </em></p>
         <p><em>If you run into technical issues, please contact a front-end web developer or check <a href="https://tibetanlanguage.school/resources">my website</a> for troubleshooting.</em></p>
-        <p><em>This file is using STITT version 1.4. Please refer to the <a href="https://github.com/nickscottprior/stitt">STITT GitHub page</a> for the most up-to-date version.</em></p>
+        <p><em>This file is using STITT version 1.4b. Please refer to the <a href="https://github.com/nickscottprior/stitt">STITT GitHub page</a> for the most up-to-date version.</em></p>
     </details>
     <hr>
 
@@ -211,17 +218,17 @@
         <p style="font-size: 14px;"><a href="#output-menu">Jump to bottom⤵</a></p>
     </div>
 
-    <span style="font-size:14px;text-decoration: underline;">Automatic text inputter</span><br>
+    <span style="font-size:14px;text-decoration: underline;">Automatic text importer</span><br>
     <textarea style="padding:10px;background-color:white; width: 80%; height: 50px" id="input-box" placeholder="Copy-paste some text into this box"></textarea>
     <div style="margin:10px 0;" title="These buttons will automatically insert text from the input box into the work area.">
-        <button onclick="convertSanskrit()">Process Sanskrit text (GRETIL e-text)</button>
-        <button onclick="convertTibetan()">Process Tibetan text (ACIP e-text)</button>
+        <button onclick="importSanskrit()">Import Sanskrit text (GRETIL e-text)</button>
+        <button onclick="importTibetan()">Import Tibetan text (ACIP e-text)</button>
     </div>
-    <details><summary>Automatic text inputter instructions</summary><p style="font-size:14px;font-style:italic; padding-right: 20px;">To insert a text into STITT, you can either use the automatic text inputter above, or you can manually add new blocks with the "New block" button at the bottom of the work area.<br>
-        <br>This text inputter breaks a text into individual lines and automatically inserts those lines one-by-one into the work area below. It is much faster than manually breaking a text at every line. You can easily search for a text to work on using the <a href="http://databases.aibs.columbia.edu/">AIBS database</a>, then click on a search result to see if it has a GRETIL and/or ACIP e-text available.</a><br>
-        <br>Sanskrit <a href="http://gretil.sub.uni-goettingen.de/gretil.html">GRETIL texts</a> are romanized by default. They can either be input as-is in their romanized form, or they can be preprocessed and converted to Devanagari first. To do this, 1. copy-paste the text into the <a href="#input-box2">input box</a> at the bottom of the page, 2. click the GRETIL preprocessor button, 3. copy-paste the output into the IAST box of an <a href="https://www.yesvedanta.com/transliterate/">Indic script converter</a>, 4. copy-paste the resulting Devanagari into the automatic text inputter above, and 5. click the "Process Sanskrit text" button.<br>
-        <br>Tibetan <a href="https://asianclassics.org/library/downloads/">ACIP texts</a> have already been converted into Tibetan script, and do not need to be pre-processed or transliterated. You can simply 1. copy-paste the text directly into the automatic text inputter and 2. click the "Process Tibetan text" button. If you want to convert them to Wylie<br>
-        <br>Since Sanskrit and Tibetan texts do not always contain the exact same content or divide sentences the same way, STITT cannot automatically combine and align both languages at the same time. As a result, you will have to automatically input one language and manually input the corresponding passages for the other language.</p>
+    <details><summary>Text importer instructions</summary><p style="font-size:14px;font-style:italic; padding-right: 20px;">To insert a text into STITT, you can either use the automatic text importer above, or you can manually add new blocks with the "New block" button at the bottom of the work area.<br>
+        <br>The text importer breaks a text into individual lines and automatically inserts those lines one-by-one into the work area below. It is much faster than manually breaking a text at every line. You can easily search for a text to work on using the <a href="http://databases.aibs.columbia.edu/">AIBS database</a>, then click on a search result to see if it has a GRETIL and/or ACIP e-text available.</a><br>
+        <br>Sanskrit <a href="http://gretil.sub.uni-goettingen.de/gretil.html">GRETIL e-texts</a> are romanized by default. They can either be imported as-is in their romanized form, or they can be preprocessed and converted to Devanagari first. To do this, 1. copy-paste the text into the <a href="#input-box2">input box</a> at the bottom of the page, 2. click the IAST preprocessor button, 3. copy-paste the output into the IAST box of an <a href="https://www.yesvedanta.com/transliterate/">Indic script converter</a>, 4. copy-paste the resulting Devanagari into the automatic text importer above, and 5. click the "Import Sanskrit text (GRETIL e-text)" button.<br>
+        <br>Tibetan <a href="https://asianclassics.org/library/downloads/">ACIP e-texts</a> have already been converted into Tibetan script. To import them, you can simply 1. copy-paste the text directly into the automatic text importer and 2. click the "Process Tibetan text (ACIP e-text)" button. If you want to convert them to Wylie, no pre-processing is required; simply 1. copy-paste the text into a Tibetan script converter, 2. copy-paste the result into the automatic text importer above, and 3. click the "Import Tibetan text (ACIP e-text)" button.<br>
+        <br>Since Sanskrit and Tibetan texts do not always contain the exact same content or divide sentences the same way, STITT cannot automatically combine and align both languages at the same time. As a result, you will have to automatically import the text one language and then manually input the corresponding passages for the other language.</p>
     </details>
     <!--<p class="glossesTop" onclick="openFunction()">Click me (experimental)</p>
     <p class="glossesBottom" contenteditable>This text should originally be hidden</p>-->
@@ -269,8 +276,8 @@
     </span>
     <br>
     <div style="height: 20px;"></div>
-    <span style="font-size:14px;text-decoration: underline;" title="A place to input notes, links, and other information relevant to this project.">Project notes</span><br>
-    <p style="font-size:14px;padding:5px;background-color:white;" contenteditable="">Sanskrit text: https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/3_phil/buddh/bsa065_u.htm<br>Tibetan text: https://tibetan.works/e-text/reader.php?collection=tengyur&amp;index=4059</p>
+    <span style="font-size:14px;text-decoration: underline;" title="A place to input notes, links, and other information relevant to your project.">Project notes</span><br>
+    <p style="font-size:14px;padding:5px;background-color:white;" contenteditable="">Sanskrit text: https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/3_phil/buddh/bsa065_u.htm<br>Tibetan text: https://tibetan.works/etext/reader.php?collection=tengyur&amp;index=4059<br>ā ī ū ṛ ṝ ḷ ḹ ṃ ḥ ṭ ḍ ṇ ś ṣ ḻ ä ö ü é</p>
     
     <br id="begin">
     <div class="sentence">
@@ -395,30 +402,37 @@
     <div style="height: 30px;"></div>
     <p><strong>Output menu </strong></p>
     <p style="font-size:14px;margin-top:0;">Output text from the work area:</p>
-    <div style="font-size: 14px;margin:5px;" title="This will output the chosen field from the work area with line breaks between each block.">Block-by-block:<br>
+    <div style="font-size: 14px;margin:5px;" title="These buttons will output the chosen field from the work area with line breaks between each block.">Block-by-block:<br>
     <button onclick="linebylineSanskritA()">Sanskrit</button>
     <button onclick="linebylineTibetanA()">Tibetan</button>
     <button onclick="linebylineTranslationA()">Translation</button>
+    <button onclick="sktAndTranslation()">Sanskrit + translation</button>
+    <button onclick="tbtAndTranslation()">Tibetan + translation</button>
+    <button onclick="blockbyblockInterlinear()">All three</button>
     <button id="button-continuousCorrespondences">Correspondences</button></div>
-    <div style="font-size: 14px;margin:5px;" title="This will output the chosen field from the work area as a continuous text without line breaks.">Continuous:<br>
+    <div style="font-size: 14px;margin:5px;" title="These buttons will output the chosen field from the work area as a continuous text without line breaks.">Continuous:<br>
     <button id="button-continuousSanskrit">Sanskrit</button>
     <button id="button-continuousTibetan">Tibetan</button>
     <button id="button-continuousTranslation">Translation</button></div>
-    <div style="font-size: 14px;margin:5px;" title="This will output a table that you can easily import into Word, Excel, or a flashcard program like Anki. To avoid data extraction errors, please try to use a consistent column separator for all the correspondences fields in the document.">Chart correspondences using a specific column separator:<br>
+    <div style="font-size: 14px;margin:5px;" title="These buttons will output a table that you can easily import into Word, Excel, or a flashcard program like Anki. To avoid data extraction errors, please try to use a consistent column separator for all the correspondences fields in the document.">Chart correspondences using a specific column separator:<br>
         <button onclick="commaCorrespondences()">comma (,)</button>
         <button onclick="equalCorrespondences()">equals sign (=)</button>
         <button onclick="slashCorrespondences()">slash (/)</button>
         <button onclick="hyphenCorrespondences()">hyphen (-)</button>
         <button onclick="dblspaceCorrespondences()">double space (  )</button><br>
     </div>
-    <div style="margin-top: 25px;padding:8px 0px;border-top: 1px dotted black; border-bottom: 1px dotted black;" title="This will convert any text from the input box into the chosen format.">
+    <div style="margin-top: 25px;padding:8px 0px;border-top: 1px dotted black; border-bottom: 1px dotted black;">
     <p style="font-size: 14px;">Output text from an input box:</p>
     <textarea style="padding:10px;background-color:white; width: 80%; height: 50px" id="input-box2" placeholder="Copy-paste some text into this box"></textarea><br>
         <button onclick="linebylineSanskritB()">Line-by-line Sanskrit (GRETIL e-text)</button>
         <button onclick="continuousSanskritB()">Continuous Sanskrit (GRETIL e-text)</button><br>
         <button onclick="linebylineTibetanB()">Line-by-line Tibetan (ACIP e-text)</button>
         <button onclick="continuousTibetanB()">Continuous Tibetan (ACIP e-text)</button><br>
-        <button onclick="gretilPre()">GRETIL preprocessor</button>
+        <button onclick="gretilPre()">IAST preprocessor</button>
+        <!--<button onclick="wyliePost()">Wylie postprocessor</button> I realized I don't need this, I built the functionality
+            of the postprocessor right into the main import button. I can't do the same with Sanskrit because the Sanskrit
+        transliteration converter doesn't actually work with the raw GRETIL text, so preprocessing is required.-->
+        <button onclick="removeSpace()">Remove extra spaces & lines</button>
         <button onclick="clearOutput()">Clear output</button>
         <div style="height: 15px;"></div>
     </div>
@@ -529,6 +543,7 @@
             tibetanOutput += x + " ";
            }
            tibetanOutput = tibetanOutput.replaceAll("། ། ", "། །")
+           tibetanOutput = tibetanOutput.replaceAll("/_/ ", "/_/")
            document.getElementById("displayBox").innerHTML = tibetanOutput;
            tibetanOutput = "";
         }
@@ -587,8 +602,8 @@
         //const fieldCollection = document.getElementsByTagName("p");
         
         document.getElementById("button-parseHTML").onclick = function () {
-            let fieldCollection = document.querySelectorAll("p[contenteditable]");
-            if (confirm("Note: this will parse all user-input HTML tags.\nFor security, you should only use and parse HTML tags if you know and understand the risks of XSS. Do you want to continue?")) {
+            let fieldCollection = document.querySelectorAll("p[contenteditable]:not(.correspondences)");
+            if (confirm("Note: this will parse all user-input HTML tags, excluding those that are in the correspondences. For security, you should only use and parse HTML tags if you know and understand the risks of XSS.\nDo you want to continue?")) {
                 for(let i = 0; i < fieldCollection.length; i++) {
                     //if(fieldCollection[i].getAttribute(contenteditable)==true) {
                     let x = fieldCollection[i].innerHTML;
@@ -603,8 +618,8 @@
 
         //purgeHTML button
         document.getElementById("button-purgeHTML").onclick = function () {
-            let fieldCollection = document.querySelectorAll("p[contenteditable]");
-            if (confirm("Note: this will remove all HTML formatting, including line breaks, from all user-input fields. Do you want to continue?")) {
+            let fieldCollection = document.querySelectorAll("p[contenteditable]:not(.correspondences)");
+            if (confirm("Note: this will remove all HTML formatting (including line breaks) from all user-input fields other than the correspondences.\nDo you want to continue?")) {
                 for(let i = 0; i < fieldCollection.length; i++) {
                     let x = fieldCollection[i].innerHTML;
                     let leftParsed = "";
@@ -1059,10 +1074,11 @@
             }
 }
 
-    //convertTibetan button at top of page
-    function convertTibetan() {
+    //importTibetan button at top of page
+    function importTibetan() {
         let inputContent = document.getElementById("input-box").value;
-        let outputContent = inputContent.replaceAll("<br>", ""); // removing HTML line breaks
+        let outputContent = inputContent.replaceAll("@#/_/", "!"); // separating out postprocessed wylie line breaks
+        //below deals with uchen input
         outputContent = outputContent.replaceAll("\n", ""); //removing formatted line breaks
         outputContent = outputContent.replaceAll("༄༅། །", "");
         outputContent = outputContent.replaceAll("༄༅༅། །", "yingo");
@@ -1072,6 +1088,12 @@
         outputContent = outputContent.replaceAll("shadspace", "། ");
         outputContent = outputContent.replaceAll("yingo", "༄༅༅། །");
         outputContent = outputContent.replaceAll("་ ", "་");
+        //below deals with postprocessed wylie
+        outputContent = outputContent.replaceAll("/_/", "&sol;&lowbar;&sol;<br>");
+        outputContent = outputContent.replaceAll("/", "&sol;");
+        outputContent = outputContent.replaceAll("_", "&lowbar;");
+        outputContent = outputContent.replaceAll("*", "&ast;");
+        outputContent = outputContent.replaceAll("!", "@#/_/");
         let outputArray = outputContent.split("<br>");
         if (outputArray.length < 2) {
             alert("The text you've entered appears to be too short. Please enter a longer selection.\nThis button is designed for ACIP e-texts. Other types of text may not be processed correctly.")
@@ -1087,16 +1109,19 @@
             '<div class="sidebar"><button class="up" title="Move this block up">&and;</button><button class="delete" title="Delete this block">&minus;</button><button class="insert" title="Insert new block">&#43;</button><button class="down" title="Move this block down">&or;</button></div>';
                 document.getElementById('end').insertAdjacentHTML('beforebegin',sentenceBlock);
         }
+            console.log(outputArray);
             alert("" + outputArray.length +" blocks have been added to the work area.")
         }
     }
-    //convertSanskrit button at top of page
-    function convertSanskrit() {
+    //importSanskrit button at top of page
+    function importSanskrit() {
         let inputContent = document.getElementById("input-box").value;
         let outputContent = inputContent.replaceAll("\n", "<br>"); //removing formatted line breaks
         outputContent = outputContent.replaceAll("<br><br><br>", "<br>"); //removing triple HTML line breaks
         outputContent = outputContent.replaceAll("<br><br>", "<br>"); //removing double HTML line breaks
+        //console.log(outputContent);
         let outputArray = outputContent.split("<br>");
+        //console.log(outputArray);
         if (outputArray.length < 2) {
             alert("The text you've entered appears to be too short. Please enter a longer selection.\nThis button is designed for GRETIL e-texts. Other types of text may not be processed correctly.")
         } else if (confirm("Note: this action will add " + outputArray.length + " blocks to the work area.\nDo you want to continue?")) {
@@ -1113,7 +1138,7 @@
                 document.getElementById('end').insertAdjacentHTML('beforebegin',sentenceBlock);
             
         }
-        
+            
             alert("" + outputArray.length +" blocks have been added to the work area.")
         }
     }
@@ -1142,14 +1167,23 @@
         let inputContent = document.getElementById("input-box2").value;
         let outputContent = inputContent.replaceAll("<br>", ""); // removing HTML line breaks
         outputContent = outputContent.replaceAll("\n", ""); //removing formatted line breaks
-        outputContent = outputContent.replaceAll("༄༅། །", "");
-        outputContent = outputContent.replaceAll("༄༅༅། །", "yingo");
+        //uchen below
+        outputContent = outputContent.replaceAll("༄༅། །", "yingo2");
+        outputContent = outputContent.replaceAll("༄༅༅། །", "yingo3");
         outputContent = outputContent.replaceAll("། །", "doubleshad");
-        outputContent = outputContent.replaceAll("། ", "shadspace");
+        outputContent = outputContent.replaceAll("། ", "shadspace"); //is this line rly necessary?
         outputContent = outputContent.replaceAll("doubleshad", "། །<br>");
-        outputContent = outputContent.replaceAll("shadspace", "། ");
-        outputContent = outputContent.replaceAll("yingo", "༄༅༅། །");
-        outputContent = outputContent.replaceAll("་ ", "་");
+        outputContent = outputContent.replaceAll("shadspace", "། "); //is this line rly necessary?
+        outputContent = outputContent.replaceAll("yingo2", "༄༅། །");
+        outputContent = outputContent.replaceAll("yingo3", "༄༅༅། །");
+        outputContent = outputContent.replaceAll("་ ", "་"); //is this line rly necessary?
+        //wylie below
+        outputContent = outputContent.replaceAll("@#/_/", "yingo2");
+        outputContent = outputContent.replaceAll("@##/_/", "yingo3");
+        outputContent = outputContent.replaceAll("/_/", "doubleshad");
+        outputContent = outputContent.replaceAll("doubleshad", "/_/<br>");
+        outputContent = outputContent.replaceAll("yingo2", "@#/_/");
+        outputContent = outputContent.replaceAll("yingo3", "@##/_/");
         document.getElementById("displayBox").innerHTML = outputContent;
     }
 
@@ -1158,14 +1192,23 @@
         let inputContent = document.getElementById("input-box2").value;
         let outputContent = inputContent.replaceAll("<br>", ""); // removing HTML line breaks
         outputContent = outputContent.replaceAll("\n", ""); //removing formatted line breaks
-        outputContent = outputContent.replaceAll("༄༅། །", "");
-        outputContent = outputContent.replaceAll("༄༅༅། །", "yingo");
+        //uchen below
+        /*outputContent = outputContent.replaceAll("༄༅། །", "yingo2");
+        outputContent = outputContent.replaceAll("༄༅༅། །", "yingo3");
         outputContent = outputContent.replaceAll("། །", "doubleshad");
-        outputContent = outputContent.replaceAll("། ", "shadspace");
+        outputContent = outputContent.replaceAll("། ", "shadspace"); //is this line rly necessary?
         outputContent = outputContent.replaceAll("doubleshad", "། །");//only this line is different from above -- no <br> added
-        outputContent = outputContent.replaceAll("shadspace", "། ");
+        outputContent = outputContent.replaceAll("shadspace", "། "); //is this line rly necessary?
         outputContent = outputContent.replaceAll("yingo", "༄༅༅། །");
-        outputContent = outputContent.replaceAll("་ ", "་");
+        outputContent = outputContent.replaceAll("་ ", "་"); //is this line rly necessary?*/
+        //wylie below
+        /*outputContent = outputContent.replaceAll("@#/_/", "yingo2");
+        outputContent = outputContent.replaceAll("@##/_/", "yingo3");
+        outputContent = outputContent.replaceAll("/_/", "doubleshad");
+        outputContent = outputContent.replaceAll("doubleshad", "/_/"); //only this line is different from above - no <br> added
+        outputContent = outputContent.replaceAll("yingo2", "@#/_/");
+        outputContent = outputContent.replaceAll("yingo3", "@##/_/");*/
+        //
         document.getElementById("displayBox").innerHTML = outputContent;
     }
 
@@ -1216,7 +1259,7 @@
 
     //comma correspondences with , and line break
     function commaCorrespondences() {
-
+    
     for(let i = 0; i < correspondenceCollection.length; i++) { // turns correspondences into a flat string
     let x = correspondenceCollection[i].innerHTML;
     correspondenceContinuous += x + "<br>";
@@ -1227,9 +1270,10 @@
     let x = correspondenceContinuous.replaceAll("<br>", "</td></tr><tr><td>"); //uses line breaks as the row separator
     let y = x.replaceAll(",", "</td><td>"); //uses , as the column separator
     table += y + "</td></tr></table>";
-    table.replaceAll("<td> ", "<td>");
-    table.replaceAll(" </td>", "</td>");
-    table.replaceAll("<tr></tr>", "");
+    table = table.replaceAll("<td> ", "<td>"); //deletes extra left-hand spaces
+    table = table.replaceAll(" </td>", "</td>"); // deletes extra right-hand spaces
+    table = table.replaceAll("<td></td>", ""); //deletes empty cells
+    table = table.replaceAll("<tr></tr>", ""); // deletes empty rows
     
     document.getElementById("displayBox").innerHTML = table;
     correspondenceContinuous = "";
@@ -1251,9 +1295,10 @@
     let x = correspondenceContinuous.replaceAll("<br>", "</td></tr><tr><td>"); //uses line breaks as the row separator
     let y = x.replaceAll("=", "</td><td>"); //uses = as the column separator
     table += y + "</td></tr></table>";
-    table.replaceAll("<td> ", "<td>");
-    table.replaceAll(" </td>", "</td>");
-    table.replaceAll("<tr></tr>", "");
+    table = table.replaceAll("<td> ", "<td>"); //deletes extra left-hand spaces
+    table = table.replaceAll(" </td>", "</td>"); // deletes extra right-hand spaces
+    table = table.replaceAll("<td></td>", ""); //deletes empty cells
+    table = table.replaceAll("<tr></tr>", ""); // deletes empty rows
     
     document.getElementById("displayBox").innerHTML = table;
     correspondenceContinuous = "";
@@ -1267,16 +1312,18 @@
     for(let i = 0; i < correspondenceCollection.length; i++) { // turns correspondences into a flat string
     let x = correspondenceCollection[i].innerHTML;
     correspondenceContinuous += x + "<br>";
+    correspondenceContinuous = correspondenceContinuous.replaceAll("/", "&sol;"); // uses character entity to avoid bugs
     correspondenceContinuous = correspondenceContinuous.replaceAll("<br><br>", "<br>");
     }
 
     let table = "<table><tr><td>"
     let x = correspondenceContinuous.replaceAll("<br>", "</td></tr><tr><td>"); //uses line breaks as the row separator
-    let y = x.replaceAll("/", "</td><td>"); //uses / as the column separator
+    let y = x.replaceAll("&sol;", "</td><td>"); //uses &sol; as the column separator
     table += y + "</td></tr></table>";
-    table.replaceAll("<td> ", "<td>");
-    table.replaceAll(" </td>", "</td>");
-    table.replaceAll("<tr></tr>", "");
+    table = table.replaceAll("<td> ", "<td>"); //deletes extra left-hand spaces
+    table = table.replaceAll(" </td>", "</td>"); // deletes extra right-hand spaces
+    table = table.replaceAll("<td></td>", ""); //deletes empty cells
+    table = table.replaceAll("<tr></tr>", ""); // deletes empty rows
 
     document.getElementById("displayBox").innerHTML = table;
     correspondenceContinuous = "";
@@ -1290,16 +1337,18 @@
     for(let i = 0; i < correspondenceCollection.length; i++) { // turns correspondences into a flat string
     let x = correspondenceCollection[i].innerHTML;
     correspondenceContinuous += x + "<br>";
+    correspondenceContinuous = correspondenceContinuous.replaceAll("-", "&hyphen;"); // uses character entity to avoid bugs
     correspondenceContinuous = correspondenceContinuous.replaceAll("<br><br>", "<br>");
     }
 
     let table = "<table><tr><td>"
     let x = correspondenceContinuous.replaceAll("<br>", "</td></tr><tr><td>"); //uses line breaks as the row separator
-    let y = x.replaceAll("-", "</td><td>"); //uses - as the column separator
+    let y = x.replaceAll("&hyphen;", "</td><td>"); //uses &hyphen; as the column separator
     table += y + "</td></tr></table>";
-    table.replaceAll("<td> ", "<td>");
-    table.replaceAll(" </td>", "</td>");
-    table.replaceAll("<tr></tr>", "");
+    table = table.replaceAll("<td> ", "<td>"); //deletes extra left-hand spaces
+    table = table.replaceAll(" </td>", "</td>"); // deletes extra right-hand spaces
+    table = table.replaceAll("<td></td>", ""); //deletes empty cells
+    table = table.replaceAll("<tr></tr>", ""); // deletes empty rows
 
     document.getElementById("displayBox").innerHTML = table;
     correspondenceContinuous = "";
@@ -1313,16 +1362,18 @@
     for(let i = 0; i < correspondenceCollection.length; i++) { // turns correspondences into a flat string
     let x = correspondenceCollection[i].innerHTML;
     correspondenceContinuous += x + "<br>";
+    correspondenceContinuous = correspondenceContinuous.replaceAll(" ", "&nbsp;"); // uses character entity to avoid bugs
     correspondenceContinuous = correspondenceContinuous.replaceAll("<br><br>", "<br>");
     }
 
     let table = "<table><tr><td>"
     let x = correspondenceContinuous.replaceAll("<br>", "</td></tr><tr><td>"); //uses line breaks as the row separator
-    let y = x.replaceAll("  ", "</td><td>"); //uses a double space (  ) as the column separator
+    let y = x.replaceAll("&nbsp;&nbsp;", "</td><td>"); //uses a double space (  ) as the column separator
     table += y + "</td></tr></table>";
-    table.replaceAll("<td> ", "<td>");
-    table.replaceAll(" </td>", "</td>");
-    table.replaceAll("<tr></tr>", "");
+    table = table.replaceAll("<td> ", "<td>"); //deletes extra left-hand spaces
+    table = table.replaceAll(" </td>", "</td>"); // deletes extra right-hand spaces
+    table = table.replaceAll("<td></td>", ""); //deletes empty cells
+    table = table.replaceAll("<tr></tr>", ""); // deletes empty rows
 
     document.getElementById("displayBox").innerHTML = table;
     correspondenceContinuous = "";
@@ -1341,6 +1392,64 @@
         outputContent = "";
     }
 
+    //Wylie postprocessor
+    function wyliePost() {
+        let inputContent = document.getElementById("input-box2").value;
+        let outputContent = inputContent.replaceAll("\n", ""); // delete hidden line breaks
+        outputContent = outputContent.replaceAll("@#/_/", "!"); // separate out yingo
+        outputContent = outputContent.replaceAll("/_/", "zz"); // separate out double shad
+        //outputContent = outputContent.replaceAll("*/_", "*/<br>"); // break after ng + shad
+        //outputContent = outputContent.replaceAll("/_", "/<br>"); // break after single shad
+        outputContent = outputContent.replaceAll("zz", "/_/<br>"); // re-introduce double shad
+        outputContent = outputContent.replaceAll("!", "@#/_/"); // re-introduce yingo
+        //do character reference conversion
+        outputContent = outputContent.replaceAll("*", "&ast;");
+        outputContent = outputContent.replaceAll("/", "&sol;");
+        outputContent = outputContent.replaceAll("_", "&lowbar;");
+        document.getElementById("displayBox").innerHTML = outputContent;
+        outputContent = "";
+    }
 
+    //remove extra spaces & lines
+    function removeSpace() {
+        let inputContent = document.getElementById("input-box2").value;
+        console.log(inputContent);
+        let outputContent = inputContent.replaceAll("\n", "<br>");
+        outputContent = outputContent.replaceAll("<br><br>", "<br>");
+        outputContent = outputContent.replaceAll("<br><br>", "<br>");
+        outputContent = outputContent.replaceAll("<br><br>", "<br>");
+        outputContent = outputContent.replaceAll("<br><br>", "<br>");
+        outputContent = outputContent.replaceAll("<br><br>", "<br>");
+        outputContent = outputContent.replaceAll("&nbsp;&nbsp;", "&nbsp;");
+        outputContent = outputContent.replaceAll("&nbsp;&nbsp;", "&nbsp;");
+        outputContent = outputContent.replaceAll("&nbsp;&nbsp;", "&nbsp;");
+        outputContent = outputContent.replaceAll("&nbsp;&nbsp;", "&nbsp;");
+        outputContent = outputContent.replaceAll("&nbsp;&nbsp;", "&nbsp;");
+        document.getElementById("displayBox").innerHTML = outputContent;
+        outputContent = "";
+    }
+
+    //interlinear block-by-block parser for the linebyline...A buttons
+    function blockbyblockInterlinear() {
+        let outputContent = "";
+        for (i = 0; i < sanskritCollection.length; i++) {
+            outputContent += '<p><span class="sanskrit-output">' + sanskritCollection[i].innerHTML + '</span><br><span class="tibetan-output">' + tibetanCollection[i].innerHTML + '</span><br><span class="translation-output">' + translationCollection[i].innerHTML + '</span></p>';
+        }
+        document.getElementById("displayBox").innerHTML = outputContent;
+    }
+    function sktAndTranslation() {
+        let outputContent = "";
+        for (i = 0; i < sanskritCollection.length; i++) {
+            outputContent += '<p><span class="sanskrit-output">' + sanskritCollection[i].innerHTML + '</span><br><span class="translation-output">' + translationCollection[i].innerHTML + '</span></p>';
+        }
+        document.getElementById("displayBox").innerHTML = outputContent;
+    }
+    function tbtAndTranslation() {
+        let outputContent = "";
+        for (i = 0; i < sanskritCollection.length; i++) {
+            outputContent += '<p><span class="tibetan-output">' + tibetanCollection[i].innerHTML + '</span><br><span class="translation-output">' + translationCollection[i].innerHTML + '</span></p>';
+        }
+        document.getElementById("displayBox").innerHTML = outputContent;
+    }
     </script>
 </body></html>
