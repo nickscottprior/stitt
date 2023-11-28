@@ -1,8 +1,8 @@
 # STITT
 
-STITT is a program for working with trilingual textual data. It's designed to help people who are translating a text that already exists in both Sanskrit and Tibetan.  STITT provides a structured user interface for inputting, annotating, and processing interlinear text. It includes fields for source texts, language correspondences, glosses, your translation, and notes. The current version of STITT is 1.4b.
+STITT is a program for working with trilingual textual data. It's designed for people who are translating a text that's extant in both Sanskrit and Tibetan. STITT provides a structured user interface for inputting, annotating, and processing text in Sanskrit, Tibetan, and English. It includes fields for source texts, language correspondences, glosses, a translation, and notes. The current version of STITT is 1.4b.
 
-Screenshot of STITT version 1.2:
+Screenshot of STITT version 1.4b:
 
 ![stitt-1-4b-screenshot](https://github.com/nickscottprior/stitt/assets/140344267/38b448c7-7c23-453a-b889-3b8ad4c4ee12)
 
