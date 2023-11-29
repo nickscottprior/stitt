@@ -25,6 +25,8 @@ You can "save" a STITT document by typing Ctrl+S or by clicking the "download cu
 
 **For a detailed guide to using STITT, see the [Documentation](#documentation) section further below.**
 
+Here is a video on how to use STITT: https://vimeo.com/889388540
+
 ## New in version 1.4c
 
 * bug fix for adding new lines to a paragraph in Chrome
