@@ -194,7 +194,7 @@ There are three other buttons in this section:
 
 ### Other notes
 
-If you encounter a technical issue, you can either [email me about it](https://tibetanlanguage.school/) or [post the issue on GitHub](https://github.com/nickscottprior/stitt/issues). I'm always open to any ideas for new features, too.
+If you encounter a technical issue, you can either [email me about it](https://tibetanlanguage.school/about/#contact-form) or [post the issue on GitHub](https://github.com/nickscottprior/stitt/issues). I'm always open to any ideas for new features, too.
 
 STITT is **not** a collaborative real-time editor like Google Docs, so it is not possible for multiple people to simultaneously edit a STITT document out-of-the-box.
 
