@@ -1,8 +1,8 @@
 # STITT
 
-STITT is a program for working with trilingual textual data. It's designed for people who are translating a text that's extant in both Sanskrit and Tibetan. STITT provides a structured user interface for inputting, annotating, and processing text in Sanskrit, Tibetan, and English. It includes fields for source texts, language correspondences, glosses, a translation, and notes. The current version of STITT is 1.4b.
+STITT is a program for working with trilingual textual data. It's designed to support translators who are working on texts that are extant in both Sanskrit and Tibetan. STITT provides a structured user interface for inputting, annotating, and processing text in Sanskrit, Tibetan, and English. It includes fields for source texts, language correspondences, glosses, a translation, and notes. The current version of STITT is 1.4c.
 
-Screenshot of STITT version 1.4b:
+Screenshot of STITT version 1.4c:
 
 ![stitt-1-4b-screenshot](https://github.com/nickscottprior/stitt/assets/140344267/38b448c7-7c23-453a-b889-3b8ad4c4ee12)
 
@@ -24,6 +24,12 @@ Because STITT is a local file, it will not update automatically and you may end 
 You can "save" a STITT document by typing Ctrl+S or by clicking the "download current page" button at the bottom of the document. I recommend using the SHOC menu to show all fields and close all fields before saving.
 
 **For a detailed guide to using STITT, see the [Documentation](#documentation) section further below.**
+
+## New in version 1.4c
+
+* bug fix for adding new lines to a paragraph in Chrome
+* bug fix for "delete blocks in range" button
+* added link to a Wylie converter
 
 ## New in version 1.4b
 
@@ -104,11 +110,11 @@ STITT is composed of four main sections:
 
 ### The header and input menu
 
-The header and input menu in version 1.4b:
+The header and input menu in version 1.4c:
 
 ![stitt-1-4b-header-and-input-menu](https://github.com/nickscottprior/stitt/assets/140344267/31280999-ce09-403a-a9a3-584abb22e649)
 
-The header contains general information about STITT. The "technical details" line is the first dropdown menu you will encounter; click on it to open it up. It contains technical information about STITT and lists the version that you are using. The latest version is 1.4b.
+The header contains general information about STITT. The "technical details" line is the first dropdown menu you will encounter; click on it to open it up. It contains technical information about STITT and lists the version that you are using. The latest version is 1.4c.
 
 The input menu contains 3 sections:
 1. The automatic text importer
@@ -133,31 +139,24 @@ The project notes is an editable field, like most of the fields you will encount
 
 ### The work area
 
-The work area in version 1.4b:
+The work area in version 1.4c:
 
 ![stitt-1-4b-work-area](https://github.com/nickscottprior/stitt/assets/140344267/6289ae9c-7832-48e4-8623-89b815851ef2)
 
-The work area contains a series of blocks that are automatically numbered. Each block contains a sentence or paragraph of text from the Sanskrit and Tibetan source texts. The dropdown fields in each block are spaces where the translators can insert language correspondences, glosses, a translation of that passage, and any relevant notes. Click on a dropdown field to open it up, and then click on its content to edit it. These dropdown fields can be collectively shown, hidden, opened, or closed using the SHOC buttons in the input menu.
+The work area contains a series of automatically numbered blocks. Each block contains a sentence or paragraph of text from the Sanskrit and Tibetan source texts. The dropdown fields in each block are spaces where the translators can insert language correspondences, glosses, a translation of that passage, and any relevant notes. Click on a dropdown field to open it up, and then click on its content to edit it. These dropdown fields can be collectively shown, hidden, opened, or closed using the SHOC buttons in the input menu. The correspondences fields should follow a specific format, which will be discussed in the "correspondence chart buttons" section below. Beside each block is a sidebar menu with four buttons to let you move a given block up or down, delete it, or insert a block immediately below it.
 
-STITT 1.4b comes with three sample blocks already filled in; namely, the first three sentences of Vasubandhu's Pañcaskandhaka. You can delete these blocks before starting your own project.
+STITT 1.4c comes with three sample blocks already filled in; namely, the first three sentences of Vasubandhu's Pañcaskandhaka. You can delete these blocks before starting your own project. 
 
-The correspondences fields should follow a specific format, which will be discussed in the "correspondence chart buttons" section below.
+At the bottom of the work area is a series of buttons:
 
-Beside each block is a sidebar menu with four buttons to let you move a given block up or down, delete it, or insert a block immediately below it.
-
-At the bottom of the work area is a series of buttons.
-
-The "New block" button adds a new block to the bottom of a document.
-
-The "Save current page" button downloads a version of the current page, but you could also just do Ctrl+S to choose the file's name and location before downloading it.
-
-The "Delete blocks in range" button lets you delete a range of blocks all at once. In the adjacent two boxes, you need to type in the number of the first and last block that you want to delete in order to specify the range. Note that it is not possible to undo deleting a block, so you may want to save a copy of your work before making any big changes.
-
-The "Parse HTML" and "Purge HTML" boxes are for advanced users. They let you add and remove custom styling in the dropdown fields using HTML and CSS. This would let you use bolding, italics, underlines, lists, and other kinds of markup.
+* The "**New block**" button adds a new block to the bottom of a document.
+* The "**Save current page**" button downloads a version of the current page, but you could also just do Ctrl+S to choose the file's name and location before downloading it.
+* The "**Delete blocks in range**" button lets you delete a range of blocks all at once. In the adjacent two boxes, you must first type in the number of the first and last block that you want to delete in order to specify the range. Note that it is not possible to undo deleting a block, so you may want to save a copy of your work before making any big changes.
+* The "**Parse HTML**" and "**Purge HTML**" boxes are for advanced users. They let you add and remove custom styling in the dropdown fields using HTML and CSS. This would let you use bolding, italics, underlines, lists, and other kinds of markup.
 
 ### The output menu
 
-The output menu in 1.4b:
+The output menu in 1.4c:
 
 ![stitt-1-4b-output-menu](https://github.com/nickscottprior/stitt/assets/140344267/6ba13e6c-da88-4cae-b359-aacd27bc778c)
 
@@ -170,30 +169,30 @@ Outputting text from the work area has three sections:
 2. Continuous buttons;
 3. Correspondence chart buttons.
 
-The block-by-block buttons give you a variety of options for displaying content from the work area in a block-by-block format. For example, you can display your translation, or the Sanskrit text + your translation, or the Tibetan text + your translation, or all three fields at once. This section also lets you display correspondences block-by-block, but it's usually better to use the correspondence chart buttons.
+The **block-by-block** buttons give you a variety of options for displaying content from the work area in a block-by-block format. For example, you can display your translation, or the Sanskrit text + your translation, or the Tibetan text + your translation, or all three fields at once. This section also lets you display correspondences block-by-block, but it's usually better to use the correspondence chart buttons.
 
-The continuous buttons convert the work area content into a continuous text. This is most useful for displaying your translation in a continuous format.
+The **continuous** buttons convert the work area content into a continuous text. This is most useful for displaying your translation in a continuous format.
 
-The correspondence chart buttons allow you to display the content of the "correspondences" fields as a table that you can copy-paste into other programs. This lets you easily import the correspondences into word-processing software like Microsoft Word, or into a flashcard program like Anki. It is important to note that you must format the correspondence fields in a particular way for these buttons to work. Line breaks are used to mark new rows in the correspondence chart, so each term should be on a different line. You can press "enter" or "return" on your keyboard at the end of a line to insert a line break. Within any individual line, some kind of separator should be used between the different languages. This is because the separator you choose is used to mark new columns in the correspondence chart. STITT currently supports five different separators, so it's best to just pick one and use it consistently throughout all the correspondence fields in the document.
+The **correspondence chart** buttons allow you to display the content of the "correspondences" fields as a table that you can copy-paste into other programs. This lets you easily import the correspondences into word-processing software like Microsoft Word, or into a flashcard program like Anki. It is important to note that you must format the correspondence fields in a particular way for these buttons to work. Line breaks are used to mark new rows in the correspondence chart, so each term should be on a different line. You can press "enter" or "return" on your keyboard at the end of a line to insert a line break. Within any individual line, some kind of separator should be used between the different languages. This is because the separator you choose is used to mark new columns in the correspondence chart. STITT currently supports five different separators, so it's best to just pick one and use it consistently throughout all the correspondence fields in the document.
 
 Outputting text from an input menu has three sections:
 1. Line-by-line buttons;
 2. Continuous buttons,
 3. Other buttons
 
-The line-by-line buttons allow you to break up a text in the input box into different lines, and display the result below. These buttons preserve any pre-formatted line breaks in the Sanskrit, and insert line breaks after double shads (༎) in the Tibetan. They work much the same as the automatic text importer, but they let you see and control the output without actually inputting it into the work area. This can be useful for text formatting.
+The **line-by-line** buttons allow you to break up a text in the input box into different lines, and display the result below. These buttons preserve any pre-formatted line breaks in the Sanskrit, and insert line breaks after double shads (༎) in the Tibetan. They work much the same as the automatic text importer, but they let you see and control the output without actually inputting it into the work area. This can be useful for text formatting.
 
-The continuous buttons allow you to display the content of the input box as a continuous text. This can be useful for text formatting.
+The **continuous buttons** allow you to display the content of the input box as a continuous text. This can be useful for text formatting.
 
-There are three other buttons in this section.
+There are three other buttons in this section:
 
-The "IAST preprocessor" is only used when you specifically want to convert a GRETIL e-text from IAST to Devanagari before importing it into STITT. It converts text to lower-case and converts slash (/) dandas into vertical bar (|) dandas, which allow the IAST text to be properly picked up and converted using online transliteration converters. This is only necessary for IAST texts in GRETIL format because GRETIL uses capital letters and slash dandas, which deviate from proper IAST conventions.
-
-The "Remove extra space & line breaks" button removes extra spaces and line breaks from a text. This can be used as a pre-processor before importing a non-GRETIL Sanskrit text into STITT, because many non-GRETIL Sanskrit e-texts have lots of extra spaces and line breaks. You could also use this button to remove extra spaces and line breaks from any kind of text, even for things unrelated to STITT or translation.
-
-The "clear output" button just clears the output content.
+* The "**IAST preprocessor**" is only used when you specifically want to convert a GRETIL e-text from IAST to Devanagari before importing it into STITT. It converts text to lower-case and converts slash (/) dandas into vertical bar (|) dandas, which allow the IAST text to be properly picked up and converted using online transliteration converters. This is only necessary for IAST texts in GRETIL format because GRETIL uses capital letters and slash dandas, which deviate from proper IAST conventions.
+* The "**Remove extra space & line breaks**" button removes extra spaces and line breaks from a text. This can be used as a pre-processor before importing a non-GRETIL Sanskrit text into STITT, because many non-GRETIL Sanskrit e-texts have lots of extra spaces and line breaks. You could also use this button to remove extra spaces and line breaks from any kind of text, even for things unrelated to STITT or translation.
+* The "**Clear output**" button just clears the output content.
 
 ### Other notes
+
+If you encounter a technical issue, you can either [email me about it](https://tibetanlanguage.school/) or [post the issue on GitHub](https://github.com/nickscottprior/stitt/issues). I'm always open to any ideas for new features, too.
 
 STITT is **not** a collaborative real-time editor like Google Docs, so it is not possible for multiple people to simultaneously edit a STITT document out-of-the-box.
 
