@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-    <!--Version 1.4b-->
+    <!--Version 1.4c-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -209,7 +209,7 @@
             The use of HTML allows data to be structured hierarchically, which makes it easy to rearrange and extract using the output menu at the bottom of the program. You can use a STITT file in conjunction with Git version control to manage a collaborative translation project with multiple contributors.
         </em></p>
         <p><em>If you run into technical issues, please contact a front-end web developer or check <a href="https://tibetanlanguage.school/resources">my website</a> for troubleshooting.</em></p>
-        <p><em>This file is using STITT version 1.4b. Please refer to the <a href="https://github.com/nickscottprior/stitt">STITT GitHub page</a> for the most up-to-date version.</em></p>
+        <p><em>This file is using STITT version 1.4c. Please refer to the <a href="https://github.com/nickscottprior/stitt">STITT GitHub page</a> for the most up-to-date version.</em></p>
     </details>
     <hr>
 
@@ -227,7 +227,7 @@
     <details><summary>Text importer instructions</summary><p style="font-size:14px;font-style:italic; padding-right: 20px;">To insert a text into STITT, you can either use the automatic text importer above, or you can manually add new blocks with the "New block" button at the bottom of the work area.<br>
         <br>The text importer breaks a text into individual lines and automatically inserts those lines one-by-one into the work area below. It is much faster than manually breaking a text at every line. You can easily search for a text to work on using the <a href="http://databases.aibs.columbia.edu/">AIBS database</a>, then click on a search result to see if it has a GRETIL and/or ACIP e-text available.</a><br>
         <br>Sanskrit <a href="http://gretil.sub.uni-goettingen.de/gretil.html">GRETIL e-texts</a> are romanized by default. They can either be imported as-is in their romanized form, or they can be preprocessed and converted to Devanagari first. To do this, 1. copy-paste the text into the <a href="#input-box2">input box</a> at the bottom of the page, 2. click the IAST preprocessor button, 3. copy-paste the output into the IAST box of an <a href="https://www.yesvedanta.com/transliterate/">Indic script converter</a>, 4. copy-paste the resulting Devanagari into the automatic text importer above, and 5. click the "Import Sanskrit text (GRETIL e-text)" button.<br>
-        <br>Tibetan <a href="https://asianclassics.org/library/downloads/">ACIP e-texts</a> have already been converted into Tibetan script. To import them, you can simply 1. copy-paste the text directly into the automatic text importer and 2. click the "Process Tibetan text (ACIP e-text)" button. If you want to convert them to Wylie, no pre-processing is required; simply 1. copy-paste the text into a Tibetan script converter, 2. copy-paste the result into the automatic text importer above, and 3. click the "Import Tibetan text (ACIP e-text)" button.<br>
+        <br>Tibetan <a href="https://asianclassics.org/library/downloads/">ACIP e-texts</a> have already been converted into Tibetan script. To import them, you can simply 1. copy-paste the text directly into the automatic text importer and 2. click the "Process Tibetan text (ACIP e-text)" button. If you want to convert them to Wylie, no pre-processing is required; simply 1. copy-paste the text into a <a href="https://www.thlib.org/reference/transliteration/wyconverter.php">Tibetan script converter</a>, 2. copy-paste the result into the automatic text importer above, and 3. click the "Import Tibetan text (ACIP e-text)" button.<br>
         <br>Since Sanskrit and Tibetan texts do not always contain the exact same content or divide sentences the same way, STITT cannot automatically combine and align both languages at the same time. As a result, you will have to automatically import the text one language and then manually input the corresponding passages for the other language.</p>
     </details>
     <!--<p class="glossesTop" onclick="openFunction()">Click me (experimental)</p>
@@ -1228,6 +1228,8 @@
             alert("The minimum value must be a number.")
         } else if (minValue <= 0) {
             alert("The minimum value must be greater than or equal to 1.")
+        } else if (minValue >= sentenceBlocks.length) {
+            alert("The minimum value must be less than " + sentenceBlocks.length +".")
         } else if ((maxValue == "") || isNaN(maxValue)) {
             alert("The maximum value must be a number.")
         } else if (maxValue > sentenceBlocks.length) {
@@ -1451,5 +1453,13 @@
         }
         document.getElementById("displayBox").innerHTML = outputContent;
     }
+
+    //fix for Chrome inserting <div></div> instead of <br> when clicking enter
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Enter') {
+            document.execCommand('insertLineBreak')
+            event.preventDefault()
+        }
+    })
     </script>
 </body></html>
