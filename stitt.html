@@ -18,8 +18,12 @@
             margin-left: 50px;
             font-family: Arial, Helvetica, sans-serif;
         }
-        p[contenteditable] * { /*this takes care of e.g. an added <em> in the editable fields changing the background color to that of the universal selector*/
+        p.sanskrit *, p.tibetan * { /*this takes care of e.g. an added <em> in the editable fields changing the background color to off-white*/
             background-color: white;
+        }
+
+        p.correspondences *, p.glosses *, p.translation *, p.notes * { /*this takes care of e.g. an added <em> in the editable fields changing the background color to white*/
+            background-color: rgb(247, 247, 226);
         }
 
         .sentence { /*sentence block style*/
