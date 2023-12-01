@@ -29,6 +29,7 @@ Here is a video on how to use STITT: https://vimeo.com/889388540
 
 ## New in version 1.4c
 
+* bug fix for incorrect background color when using HTML markup
 * bug fix for adding new lines to a paragraph in Chrome
 * bug fix for "delete blocks in range" button
 * added link to a Wylie converter
