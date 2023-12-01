@@ -64,11 +64,12 @@ Here is a video on how to use STITT: https://vimeo.com/889388540
 
 STITT was originally developed for working with Tibetan translations of Sanskrit Buddhist texts. It has several benefits over standard word-processing software, including:
 
+* Tools that are tailored for working with Sanskrit + Tibetan e-texts
 * A simple and customizable UI to minimize distractions
 * Collapsible sections to show or hide data as needed
 * A hierarchical HTML-based data structure to allow for easy data extraction
 
-The hierarchical data structure is particularly important. It allows STITT to import and export textual data in a variety of different formats at the click of a button. As of STITT version 1.4, you can automatically import GRETIL and ACIP e-texts into the work area at the click of a button, and can export your translation from the work area in either block-by-block format or as a continuous text. You can also export your notes on language correspondences as a table that you can easily copy-paste into other programs.
+The hierarchical data structure is particularly important. It allows STITT to import and export textual data in a variety of different formats at the click of a button. As of STITT version 1.4 you can automatically import GRETIL and ACIP e-texts into the work area, and can export your translation from the work area in either block-by-block format or as a continuous text. You can also export your notes on language correspondences as a table that you can easily copy-paste into other programs.
 
 Once this feature has been fully implemented, you will be able to:
 
